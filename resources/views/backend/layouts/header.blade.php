@@ -44,13 +44,17 @@
                                  </div>
                                  <div class="row row-cols-3 g-2">
                                      <div class="d-flex-center text-center w-100">
-                                         <a class="text-light-primary w-100 rounded-3 py-2 px-2 d-flex align-items-center gap-2"
-                                             href="product.html" target="_blank">
-                                             <span>
-                                                 <i class="ph-light  ph-shopping-bag-open  f-s-30"></i>
-                                             </span>
-                                             <p class="mb-0 f-w-500 text-dark">Logout</p>
-                                         </a>
+                                         <form method="POST" action="{{ route('logout') }}">
+                                             @csrf
+                                             <button type="submit"
+                                                 class="text-light-primary w-100 rounded-3 py-2 px-2 d-flex align-items-center gap-2"
+                                                 style="background:none; border:none; cursor:pointer;">
+                                                 <span>
+                                                     <i class="ph-light ph-shopping-bag-open f-s-30"></i>
+                                                 </span>
+                                                 <p class="mb-0 f-w-500 text-dark">Logout</p>
+                                             </button>
+                                         </form>
                                      </div>
                                  </div>
                              </div>
