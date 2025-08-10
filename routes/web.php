@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\EducationQualificationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobRoleController;
@@ -26,7 +28,6 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         Route::post('/store', 'store')->name('store');
         Route::put('/update/{education}', 'update')->name('update');
         Route::delete('/delete/{education}', 'delete')->name('delete');
-
     });
     //job role
     Route::prefix('job-role')->name('jobRole.')->controller(JobRoleController::class)->group(function () {
@@ -34,8 +35,20 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         Route::post('/store', 'store')->name('store');
         Route::put('/update/{jobRole}', 'update')->name('update');
         Route::delete('/delete/{jobRole}', 'delete')->name('delete');
-
-
+    });
+    //department
+    Route::prefix('department')->name('department.')->controller(DepartmentController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/store', 'store')->name('store');
+        Route::put('/update/{department}', 'update')->name('update');
+        Route::delete('/delete/{department}', 'delete')->name('delete');
+    });
+    //designation
+    Route::prefix('designation')->name('designation.')->controller(DesignationController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/store', 'store')->name('store');
+        Route::put('/update/{designation}', 'update')->name('update');
+        Route::delete('/delete/{designation}', 'delete')->name('delete');
     });
 });
 
