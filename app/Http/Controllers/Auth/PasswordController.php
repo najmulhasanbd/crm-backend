@@ -7,6 +7,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Facades\Auth;
+
 
 class PasswordController extends Controller
 {
@@ -24,6 +26,17 @@ class PasswordController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
-        return back()->with('status', 'password-updated');
+        // পাসওয়ার্ড সফলভাবে পরিবর্তনের পর ইউজারকে লগআউট করা
+        Auth::logout();
+
+        // সেশন ইনভ্যালিডেট ও CSRF টোকেন রিজেনারেট করা
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        // লগইন পেজে রিডিরেক্ট, toastr মেসেজ সহ
+        return redirect('/login')->with([
+            'message' => 'Password changed successfully! Please login again.',
+            'alert-type' => 'success',
+        ]);
     }
 }

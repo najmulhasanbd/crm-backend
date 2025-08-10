@@ -14,7 +14,7 @@
     <meta content="la-themes" name="author">
     <link href="{{ asset('backend') }}/assets/images/logo/favicon.png" rel="icon" type="image/x-icon">
     <link href="{{ asset('backend') }}/assets/images/logo/favicon.png" rel="shortcut icon" type="image/x-icon">
-    <title>CRM</title>
+    <title>CRM | Flyori Travels</title>
 
     <!-- Animation css -->
     <link href="{{ asset('backend') }}/assets/vendor/animation/animate.min.css" rel="stylesheet">
@@ -50,6 +50,7 @@
     <link href="{{ asset('backend/assets/css/responsive.css') }}" rel="stylesheet" type="text/css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.22.3/sweetalert2.css" />
 </head>
 
 <body>
@@ -141,6 +142,32 @@
                     break;
             }
         @endif
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const deleteButtons = document.querySelectorAll('.btn-delete');
+
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            this.closest('form').submit();
+                        }
+                    });
+                });
+            });
+        });
     </script>
 </body>
 

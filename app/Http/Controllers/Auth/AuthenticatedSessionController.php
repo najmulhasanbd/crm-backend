@@ -28,7 +28,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard'))->with([
+        return redirect()->intended(route('admin.dashboard'))->with([
             'message' => 'Welcome back to Flyori Travels!',
             'alert-type' => 'success'
         ]);

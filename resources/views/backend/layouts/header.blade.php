@@ -34,7 +34,7 @@
                                  <div class="row row-cols-3 g-2 mb-2">
                                      <div class="d-flex-center text-center w-100">
                                          <a class="text-light-primary w-100 rounded-3 py-2 px-2 d-flex align-items-center gap-2"
-                                             href="product.html" target="_blank">
+                                             href="{{ route('profile.edit') }}" target="_blank">
                                              <span>
                                                  <i class="ph-light  ph-shopping-bag-open  f-s-30"></i>
                                              </span>
