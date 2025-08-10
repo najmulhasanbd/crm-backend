@@ -7,17 +7,17 @@
             <!-- Breadcrumb start -->
             <div class="row m-1">
                 <div class="col-12 ">
-                    <h4 class="main-title">Job Role List </h4>
+                    <h4 class="main-title">Education List </h4>
                     <ul class="app-line-breadcrumbs mb-3">
                         <li class="">
-                            <a class="f-s-14 f-w-500" href="{{ route('jobRole.index') }}">
+                            <a class="f-s-14 f-w-500" href="{{ route('education.index') }}">
                                 <span>
-                                    <i class="ph-duotone  ph-table f-s-16"></i> Job Role
+                                    <i class="ph-duotone  ph-table f-s-16"></i> Education List
                                 </span>
                             </a>
                         </li>
                         <li class="active">
-                            <a class="f-s-14 f-w-500" href="javascript:void(0)">Job Role</a>
+                            <a class="f-s-14 f-w-500" href="javascript:void(0)">Education List</a>
                         </li>
                     </ul>
                 </div>
@@ -36,19 +36,19 @@
                     <div class="card equal-card ">
                         <div class="card-body p-0">
                             <div id="myTable">
-                                <div class="list-table-header d-flex justify-content-sm-between mb-3">
+                                 <div class="list-table-header d-flex justify-content-sm-between mb-3">
                                     <button class="btn btn-primary" data-bs-target="#exampleModal" data-bs-toggle="modal"
                                         type="button">Add
                                     </button>
                                     <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade"
                                         id="exampleModal" tabindex="-1">
-                                        <form id="add_employee_form" method="POST" action="{{ route('jobRole.store') }}">
+                                        <form id="add_employee_form" method="POST" action="{{ route('education.store') }}">
                                             @csrf
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h1 class="modal-title fs-5" id="exampleModalLabel">Add
-                                                            Job Role
+                                                            Education
                                                         </h1>
                                                         <button aria-label="Close" class="btn-close m-0"
                                                             data-bs-dismiss="modal" type="button"></button>
@@ -56,7 +56,7 @@
                                                     <div class="modal-body">
 
                                                         <div class="contact mb-3">
-                                                            <label class="form-label" for="name">Job Role</label>
+                                                            <label class="form-label" for="name">Education Name</label>
                                                             <input class="form-control" id="name" name="name"
                                                                 placeholder="contact" required type="text">
                                                         </div>
@@ -84,7 +84,7 @@
                                             </tr>
                                         </thead>
                                         <tbody class="list" id="t-data">
-                                            @foreach ($jobRoles as $key => $item)
+                                            @foreach ($educations as $key => $item)
                                                 <tr>
                                                     <td>{{ $key + 1 }}</td>
                                                     <td>{{ ucwords($item->name) }}</td>
@@ -95,7 +95,7 @@
                                                             <i class="ph-duotone ph-eye f-s-16"></i>
                                                         </button>
 
-                                                        <form action="{{ route('jobRole.delete', $item->id) }}"
+                                                         <form action="{{ route('education.delete', $item->id) }}"
                                                             method="POST" style="display:inline-block;">
                                                             @csrf
                                                             @method('DELETE')
@@ -110,28 +110,26 @@
                                                 <div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1"
                                                     aria-labelledby="editModalLabel{{ $item->id }}" aria-hidden="true">
                                                     <div class="modal-dialog">
-                                                        <form action="{{ route('jobRole.update', $item->id) }}"
+                                                        <form action="{{ route('education.update', $item->id) }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('PUT')
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title"
-                                                                        id="editModalLabel{{ $item->id }}">Update Job
-                                                                        Role</h5>
+                                                                        id="editModalLabel{{ $item->id }}">Update Education</h5>
                                                                     <button type="button" class="btn-close"
                                                                         data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     <label for="name{{ $item->id }}"
-                                                                        class="form-label">Job Role Name</label>
+                                                                        class="form-label">Education Name</label>
                                                                     <input type="text" id="name{{ $item->id }}"
                                                                         name="name" value="{{ $item->name }}"
                                                                         class="form-control" required>
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <button type="submit" class="btn btn-primary">Update
-                                                                        Job Role</button>
+                                                                    <button type="submit" class="btn btn-primary">Update Education</button>
                                                                     <button type="button" class="btn btn-secondary"
                                                                         data-bs-dismiss="modal">Close</button>
                                                                 </div>
@@ -140,7 +138,6 @@
                                                     </div>
                                                 </div>
                                             @endforeach
-
                                         </tbody>
                                     </table>
                                 </div>

@@ -48,6 +48,16 @@
                  </ul>
              </li>
              <li class="no-sub">
+                 <a href="{{ route('education.index') }}">
+                     <svg stroke="currentColor" stroke-width="1.5">
+                         <use
+                             xlink:href="https://phpstack-1384472-5121645.cloudwaysapps.com/template/html/ki-admin/assets/svg/_sprite.svg#squares">
+                         </use>
+                     </svg>
+                     Education Qualification
+                 </a>
+             </li>
+             <li class="no-sub">
                  <a href="{{ route('jobRole.index') }}">
                      <svg stroke="currentColor" stroke-width="1.5">
                          <use
