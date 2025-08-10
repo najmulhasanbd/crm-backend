@@ -68,6 +68,16 @@
                  </a>
              </li>
              <li class="no-sub">
+                 <a href="{{ route('designation.index') }}">
+                     <svg stroke="currentColor" stroke-width="1.5">
+                         <use
+                             xlink:href="https://phpstack-1384472-5121645.cloudwaysapps.com/template/html/ki-admin/assets/svg/_sprite.svg#squares">
+                         </use>
+                     </svg>
+                     Designation
+                 </a>
+             </li>
+             <li class="no-sub">
                  <a href="{{ route('department.index') }}">
                      <svg stroke="currentColor" stroke-width="1.5">
                          <use

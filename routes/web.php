@@ -3,6 +3,7 @@
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\EducationQualificationController;
+use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobRoleController;
 use App\Http\Controllers\ProfileController;
@@ -36,6 +37,15 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         Route::put('/update/{jobRole}', 'update')->name('update');
         Route::delete('/delete/{jobRole}', 'delete')->name('delete');
     });
+
+    //employee
+    Route::prefix('employee')->name('employee.')->controller(EmployeeController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/store', 'store')->name('store');
+        Route::put('/update/{employee}', 'update')->name('update');
+        Route::delete('/delete/{employee}', 'delete')->name('delete');
+    });
+
     //department
     Route::prefix('department')->name('department.')->controller(DepartmentController::class)->group(function () {
         Route::get('/', 'index')->name('index');
