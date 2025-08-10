@@ -28,8 +28,12 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        return redirect()->intended(route('dashboard'))->with([
+            'message' => 'Welcome back to Flyori Travels!',
+            'alert-type' => 'success'
+        ]);
     }
+
 
     /**
      * Destroy an authenticated session.
@@ -42,6 +46,9 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/')->with([
+            'message' => 'Logged out successfully.',
+            'alert-type' => 'success'
+        ]);
     }
 }

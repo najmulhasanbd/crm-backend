@@ -49,6 +49,7 @@
     <!-- Responsive css-->
     <link href="{{ asset('backend/assets/css/responsive.css') }}" rel="stylesheet" type="text/css">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 </head>
 
 <body>
@@ -112,6 +113,35 @@
     <!-- App js-->
     <script src="{{ asset('backend') }}/assets/js/script.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script>
+        @if (Session::has('message'))
+            var type = "{{ Session::get('alert-type', 'info') }}"
+            var toastrOptions = {
+                positionClass: 'toast-top-right',
+                progressBar: true,
+                timeOut: 3000,
+            };
+            switch (type) {
+                case 'info':
+                    toastr.info("{{ Session::get('message') }}", '', toastrOptions);
+                    break;
+
+                case 'success':
+                    toastr.success("{{ Session::get('message') }}", '', toastrOptions);
+                    break;
+
+                case 'warning':
+                    toastr.warning("{{ Session::get('message') }}", '', toastrOptions);
+                    break;
+
+                case 'error':
+                    toastr.error("{{ Session::get('message') }}", '', toastrOptions);
+                    break;
+            }
+        @endif
+    </script>
 </body>
 
 
