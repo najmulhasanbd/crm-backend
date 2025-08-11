@@ -55,12 +55,11 @@
                                                     </div>
                                                     <div class="modal-body">
 
-                                                        <div class="contact mb-3">
-                                                            <label class="form-label" for="name">Job Role</label>
+                                                        <div class="form-floating mb-3">
                                                             <input class="form-control" id="name" name="name"
-                                                                placeholder="contact" required type="text">
+                                                                placeholder="Job Role" required type="text">
+                                                            <label class="form-label" for="name">Job Role</label>
                                                         </div>
-
                                                     </div>
                                                     <div class="modal-footer add">
                                                         <input class="btn btn-secondary" data-bs-dismiss="modal"
@@ -123,11 +122,14 @@
                                                                         data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <label for="name{{ $item->id }}"
-                                                                        class="form-label">Job Role Name</label>
-                                                                    <input type="text" id="name{{ $item->id }}"
-                                                                        name="name" value="{{ $item->name }}"
-                                                                        class="form-control" required>
+                                                                    <div class="form-floating mb-3">
+                                                                        <input class="form-control"
+                                                                            id="name{{ $item->id }}" name="name"
+                                                                            value="{{ $item->name }}" required
+                                                                            type="text">
+                                                                        <label for="name{{ $item->id }}">Job Role
+                                                                            Name</label>
+                                                                    </div>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="submit" class="btn btn-primary">Update

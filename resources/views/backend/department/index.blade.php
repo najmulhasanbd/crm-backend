@@ -58,7 +58,7 @@
 
                                                         <div class="form-floating mb-3">
                                                             <input class="form-control" id="name" name="name"
-                                                            placeholder="Department Name" required type="text">
+                                                                placeholder="Department Name" required type="text">
                                                             <label class="form-label" for="name">Department Name</label>
                                                         </div>
 
@@ -124,13 +124,14 @@
                                                                         data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <div class="form-floating">
-                                                                        <label for="name{{ $item->id }}"
-                                                                            class="form-label">Department Name</label>
-                                                                            <input type="text" id="name{{ $item->id }}"
-                                                                            name="name" placeholder="Department Name" value="{{ $item->name }}"
-                                                                            class="form-control" required>
-                                                                        </div>
+                                                                    <div class="form-floating mb-3">
+                                                                        <input class="form-control"
+                                                                            id="name{{ $item->id }}" name="name"
+                                                                            value="{{ $item->name }}" required
+                                                                            type="text">
+                                                                        <label for="name{{ $item->id }}">Department
+                                                                            Name</label>
+                                                                    </div>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="submit" class="btn btn-primary">Update

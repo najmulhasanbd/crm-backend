@@ -24,7 +24,7 @@
             <!-- Breadcrumb end -->
             <div class="row">
                 <!-- List Js Table start -->
-                <div class="col-xxl-8">
+                <div class="col-12">
                     @if ($errors->has('name'))
                         <div class="alert alert-danger">
                             {{ $errors->first('name') }}
@@ -39,9 +39,10 @@
                                     </button>
                                     <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade"
                                         id="exampleModal" tabindex="-1">
-                                        <form id="add_employee_form" method="POST" action="{{ route('employee.store') }}">
+                                        <form id="add_employee_form" method="POST" action="{{ route('employee.store') }}"
+                                            enctype="multipart/form-data">
                                             @csrf
-                                            <div class="modal-dialog">
+                                            <div class="modal-dialog modal-lg">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h1 class="modal-title fs-5" id="exampleModalLabel">Add
@@ -51,99 +52,146 @@
                                                             data-bs-dismiss="modal" type="button"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <div class="form-floating mb-3">
-                                                            <input class="form-control" id="id_card" name="id_card"
-                                                                placeholder="contact" required type="text">
-                                                            <label class="form-label" for="id_card">Employee ID</label>
+                                                        <div class="row">
+                                                            <div class="col-12 col-md-6">
+                                                                <div class="form-floating mb-3">
+                                                                    <input class="form-control" id="photo"
+                                                                        name="photo" required type="file">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-6">
+                                                                <div class="form-floating mb-3">
+                                                                    <input class="form-control" id="id_card"
+                                                                        name="id_card" placeholder="contact" required
+                                                                        type="text">
+                                                                    <label class="form-label" for="id_card">Employee
+                                                                        ID</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-6">
+                                                                <div class="form-floating mb-3">
+                                                                    <input class="form-control" id="name"
+                                                                        name="name" placeholder="contact" required
+                                                                        type="text">
+                                                                    <label class="form-label" for="name">Employee
+                                                                        Name</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-6">
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Department</label>
+                                                                    <select class="form-select" name="department" required
+                                                                        style="height: 60px">
+                                                                        @foreach ($department as $item)
+                                                                            <option value="{{ $item->name }}">
+                                                                                {{ ucwords($item->name) }}
+                                                                            </option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-6">
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Designation</label>
+                                                                    <select class="form-select" name="designation" required
+                                                                        style="height: 60px">
+                                                                        @foreach ($designation as $item)
+                                                                            <option value="{{ $item->name }}">
+                                                                                {{ ucwords($item->name) }}
+                                                                            </option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-6">
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Blood Group</label>
+                                                                    <select class="form-select" name="blood" required
+                                                                        style="height: 60px">
+                                                                        <option value="">Select Blood Group</option>
+                                                                        <option value="A+">A+</option>
+                                                                        <option value="A-">A-</option>
+                                                                        <option value="B+">B+</option>
+                                                                        <option value="B-">B-</option>
+                                                                        <option value="AB+">AB+</option>
+                                                                        <option value="AB-">AB-</option>
+                                                                        <option value="O+">O+</option>
+                                                                        <option value="O-">O-</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-6">
+                                                                <div class="form-floating mb-3">
+                                                                    <input class="form-control" id="salary"
+                                                                        name="salary" placeholder="contact" required
+                                                                        type="number">
+                                                                    <label class="form-label" for="salary">Employee
+                                                                        Salary</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-6">
+                                                                <div class="form-floating mb-3">
+                                                                    <input class="form-control" id="commission"
+                                                                        name="commission" placeholder="contact" required
+                                                                        type="number">
+                                                                    <label class="form-label"
+                                                                        for="commission">Commission</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-6">
+                                                                <div class="form-floating mb-3">
+                                                                    <input class="form-control" id="email"
+                                                                        name="email" placeholder="contact" required
+                                                                        type="email">
+                                                                    <label class="form-label" for="email">Email</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-6">
+                                                                <div class="form-floating mb-3">
+                                                                    <input class="form-control" id="mobile"
+                                                                        name="mobile" placeholder="contact" required
+                                                                        type="number">
+                                                                    <label class="form-label"
+                                                                        for="mobile">Mobile</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-6">
+                                                                <div class="form-floating mb-3">
+                                                                    <input class="form-control" name="birth_date" required
+                                                                        id="birth_date" type="date">
+                                                                    <label for="birth_date">Date of
+                                                                        Birth</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-6">
+                                                                <div class="form-floating mb-3">
+                                                                    <input class="form-control" name="appointment_date"
+                                                                        required id="appointment_date" type="date">
+                                                                    <label for="appointment_date">Date of
+                                                                        Appoinment</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-6">
+                                                                <div class="form-floating mb-3">
+                                                                    <input class="form-control" id="join_date" required
+                                                                        name="join_date" type="date">
+                                                                    <label for="join_date">Joining Date</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-6">
+                                                                <div class="form-floating mb-3">
+                                                                    <textarea name="address" id="address" class="form-control" cols="30" rows="5"></textarea>
+                                                                    <label class="form-label"
+                                                                        for="address">Address</label>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="form-floating mb-3">
-                                                            <input class="form-control" id="name" name="name"
-                                                                placeholder="contact" required type="text">
-                                                            <label class="form-label" for="name">Employee Name</label>
+                                                        <div class="modal-footer add">
+                                                            <input class="btn btn-secondary" data-bs-dismiss="modal"
+                                                                type="button" value="Close">
+                                                            <input class="btn btn-primary" id="add-btn" type="submit"
+                                                                value="Add">
                                                         </div>
-                                                        <div class="mb-3">
-                                                            <label class="form-label">Department</label>
-                                                            <select class="form-select" name="department"
-                                                                style="height: 60px">
-                                                                @foreach ($department as $item)
-                                                                    <option value="{{ $item->name }}">
-                                                                        {{ ucwords($item->name) }}
-                                                                    </option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label class="form-label">Designation</label>
-                                                            <select class="form-select" name="designation"
-                                                                style="height: 60px">
-                                                                @foreach ($designation as $item)
-                                                                    <option value="{{ $item->name }}">
-                                                                        {{ ucwords($item->name) }}
-                                                                    </option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label class="form-label">Blood Group</label>
-                                                            <select class="form-select" name="blood" style="height: 60px">
-                                                                <option value="">Select Blood Group</option>
-                                                                <option value="A+">A+</option>
-                                                                <option value="A-">A-</option>
-                                                                <option value="B+">B+</option>
-                                                                <option value="B-">B-</option>
-                                                                <option value="AB+">AB+</option>
-                                                                <option value="AB-">AB-</option>
-                                                                <option value="O+">O+</option>
-                                                                <option value="O-">O-</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-floating mb-3">
-                                                            <input class="form-control" id="salary" name="salary"
-                                                                placeholder="contact" required type="text">
-                                                            <label class="form-label" for="salary">Employee Salary</label>
-                                                        </div>
-                                                        <div class="form-floating mb-3">
-                                                            <input class="form-control" id="commission" name="commission"
-                                                                placeholder="contact" required type="text">
-                                                            <label class="form-label" for="commission">Commission</label>
-                                                        </div>
-                                                        <div class="form-floating mb-3">
-                                                            <input class="form-control" id="email" name="email"
-                                                                placeholder="contact" required type="email">
-                                                            <label class="form-label" for="email">Email</label>
-                                                        </div>
-                                                        <div class="form-floating mb-3">
-                                                            <input class="form-control" id="mobile" name="mobile"
-                                                                placeholder="contact" required type="text">
-                                                            <label class="form-label" for="mobile">Mobile</label>
-                                                        </div>
-                                                        <div class="form-floating mb-3">
-                                                            <input class="form-control" name="birth_date" id="birth_date"
-                                                                type="date">
-                                                            <label for="birth_date">Date of
-                                                                Birth</label>
-                                                        </div>
-                                                        <div class="form-floating mb-3">
-                                                            <input class="form-control" name="appointment_date"
-                                                                id="appointment_date" type="date">
-                                                            <label for="appointment_date">Date of
-                                                                Appoinment</label>
-                                                        </div>
-                                                        <div class="form-floating mb-3">
-                                                            <input class="form-control" id="join_date" name="join_date"
-                                                                type="date">
-                                                            <label for="join_date">Joining Date</label>
-                                                        </div>
-                                                        <div class="form-floating mb-3">
-                                                            <textarea name="address" id="address" class="form-control" cols="30" rows="5"></textarea>
-                                                            <label class="form-label" for="address">Address</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer add">
-                                                        <input class="btn btn-secondary" data-bs-dismiss="modal"
-                                                            type="button" value="Close">
-                                                        <input class="btn btn-primary" id="add-btn" type="submit"
-                                                            value="Add">
                                                     </div>
                                                 </div>
                                             </div>
@@ -157,6 +205,7 @@
                                             <tr class="app-sort">
                                                 <th class="">ID</th>
                                                 <th class="sort">Name</th>
+                                                <th class="sort">Email</th>
                                                 <th class="sort">Mobile</th>
                                                 <th class="sort">Designation</th>
                                                 <th class="sort">Department</th>
@@ -169,13 +218,16 @@
                                                 <tr>
                                                     <td>{{ $key + 1 }}</td>
                                                     <td>{{ ucwords($item->name) }}</td>
-                                                    <td>{{ ucwords($item->mobile) }}</td>
+                                                    <td>{{ $item->email }}</td>
+                                                    <td>{{ $item->mobile }}</td>
                                                     <td>{{ ucwords($item->designation) }}</td>
                                                     <td>{{ ucwords($item->department) }}</td>
                                                     <td>{{ ucwords($item->salary) }}</td>
 
                                                     <td class="d-flex gap-2">
-                                                        <a href="" class="btn btn-sm btn-info"> <i class="ph-duotone ph-eye f-s-16"></i>
+                                                        <a href="{{ route('employee.show', $item->id) }}"
+                                                            class="btn btn-sm btn-info"> <i
+                                                                class="ph-duotone ph-eye f-s-16"></i>
                                                         </a>
                                                         <button class="btn btn-sm btn-success" data-bs-toggle="modal"
                                                             data-bs-target="#editModal{{ $item->id }}">

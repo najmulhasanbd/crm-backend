@@ -6,6 +6,8 @@ use App\Models\Department;
 use App\Models\Designation;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 
 class EmployeeController extends Controller
 {
@@ -23,13 +25,14 @@ class EmployeeController extends Controller
     public function index()
     {
         $employee = $this->employee->latest()->paginate(10);
-        $designation=$this->designation::latest()->get();
-        $department=$this->department::latest()->get();
-        return view('backend.employee.index', compact('employee','department','designation'));
+        $designation = $this->designation::latest()->get();
+        $department = $this->department::latest()->get();
+        return view('backend.employee.index', compact('employee', 'department', 'designation'));
     }
 
     public function store(Request $request)
     {
+        // Validation rules
         $request->validate([
             'id_card' => 'required|string|max:50|unique:employees,id_card',
             'name' => 'required|string|max:255',
@@ -44,12 +47,22 @@ class EmployeeController extends Controller
             'appointment_date' => 'required|date',
             'join_date' => 'required|date',
             'address' => 'nullable|string',
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ], [
             'id_card.unique' => 'This ID Card already exists!',
             'email.unique' => 'This Email already exists!',
         ]);
 
-        $this->employee->create([
+        if ($request->hasFile('photo')) {
+            $file = $request->file('photo');
+            $filename = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
+
+            $file->storeAs('public/uploads/employees', $filename);
+        } else {
+            $filename = null;
+        }
+
+        Employee::create([
             'id_card'          => $request->id_card,
             'name'             => $request->name,
             'department'       => $request->department,
@@ -64,6 +77,7 @@ class EmployeeController extends Controller
             'join_date'        => $request->join_date,
             'address'          => $request->address,
             'status'           => 0,
+            'photo'            => $filename,
         ]);
 
         return redirect()->back()->with([
@@ -71,6 +85,7 @@ class EmployeeController extends Controller
             'alert-type' => 'success'
         ]);
     }
+
 
     public function update(Request $request, Employee $employee)
     {
@@ -93,11 +108,19 @@ class EmployeeController extends Controller
     {
         $name = $employee->name;
 
+        if ($employee->photo && Storage::exists('public/uploads/employees/' . $employee->photo)) {
+            Storage::delete('public/uploads/employees/' . $employee->photo);
+        }
+
         $employee->delete();
 
         return redirect()->route('employee.index')->with([
             'message' => "Employee '{$name}' deleted successfully!",
             'alert-type' => 'success'
         ]);
+    }
+    public function show(Employee $employee)
+    {
+        return view('backend.employee.show', compact('employee'));
     }
 }

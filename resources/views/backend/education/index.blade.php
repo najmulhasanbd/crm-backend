@@ -36,7 +36,7 @@
                     <div class="card equal-card ">
                         <div class="card-body p-0">
                             <div id="myTable">
-                                 <div class="list-table-header d-flex justify-content-sm-between mb-3">
+                                <div class="list-table-header d-flex justify-content-sm-between mb-3">
                                     <button class="btn btn-primary" data-bs-target="#exampleModal" data-bs-toggle="modal"
                                         type="button">Add
                                     </button>
@@ -95,7 +95,7 @@
                                                             <i class="ph-duotone ph-pencil f-s-16"></i>
                                                         </button>
 
-                                                         <form action="{{ route('education.delete', $item->id) }}"
+                                                        <form action="{{ route('education.delete', $item->id) }}"
                                                             method="POST" style="display:inline-block;">
                                                             @csrf
                                                             @method('DELETE')
@@ -117,19 +117,24 @@
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title"
-                                                                        id="editModalLabel{{ $item->id }}">Update Education</h5>
+                                                                        id="editModalLabel{{ $item->id }}">Update
+                                                                        Education</h5>
                                                                     <button type="button" class="btn-close"
                                                                         data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <label for="name{{ $item->id }}"
-                                                                        class="form-label">Education Name</label>
-                                                                    <input type="text" id="name{{ $item->id }}"
-                                                                        name="name" value="{{ $item->name }}"
-                                                                        class="form-control" required>
+                                                                    <div class="form-floating mb-3">
+                                                                        <input class="form-control"
+                                                                            id="name{{ $item->id }}" name="name"
+                                                                            value="{{ $item->name }}" required
+                                                                            type="text">
+                                                                        <label for="name{{ $item->id }}">Education
+                                                                            Name</label>
+                                                                    </div>
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <button type="submit" class="btn btn-primary">Update Education</button>
+                                                                    <button type="submit" class="btn btn-primary">Update
+                                                                        Education</button>
                                                                     <button type="button" class="btn btn-secondary"
                                                                         data-bs-dismiss="modal">Close</button>
                                                                 </div>

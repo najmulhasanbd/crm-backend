@@ -44,6 +44,8 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         Route::post('/store', 'store')->name('store');
         Route::put('/update/{employee}', 'update')->name('update');
         Route::delete('/delete/{employee}', 'delete')->name('delete');
+
+        Route::get('/show/{employee}', 'show')->name('show');
     });
 
     //department

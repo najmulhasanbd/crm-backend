@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
             $table->string('id_card')->unique();
+            $table->string('photo')->nullable();
             $table->string('name');
             $table->string('department');
             $table->string('designation');
-            $table->string('blood', 3); 
+            $table->string('blood', 3);
             $table->double('salary', 10, 2);
             $table->double('commission', 8, 2)->default(0);
             $table->string('email')->unique();
