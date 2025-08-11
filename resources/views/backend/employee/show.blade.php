@@ -5,52 +5,87 @@
         <div class="container-fluid">
             <!-- Breadcrumb start -->
             <div class="row m-1">
-                <div class="col-12 ">
-                    <h4 class="main-title">Employee List </h4>
-                    <div class="d-flex" style="align-items: center;justify-content: space-between">
-                        <div>
-                            <ul class="app-line-breadcrumbs mb-3">
-                                <li class="">
-                                    <a class="f-s-14 f-w-500" href="{{ route('employee.index') }}">
-                                        <span>
-                                            <i class="ph-duotone  ph-table f-s-16"></i> Employee List
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="active">
-                                    <a class="f-s-14 f-w-500" href="javascript:void(0)">Employee List</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <a href="{{ route('employee.index') }}" class="btn btn-sm btn-success">Employee List</a>
-                        </div>
+                <div class="col-12 d-flex" style="align-items: center;justify-content: space-between">
+                    <h4 class="main-title">Employee Details ( {{ $employee->name }} ) </h4>
+                    <div>
+                        <a href="{{ route('employee.index') }}" class="btn btn-sm btn-success">Employee List</a>
                     </div>
                 </div>
             </div>
             <hr>
             <!-- Breadcrumb end -->
             <div class="row">
-                <!-- List Js Table start -->
-                <div class="col-12">
-                    <h1>Employee Details</h1>
-                    <img src="{{ asset('storage/uploads/employees/' . $employee->photo) }}" alt="Employee Photo"
-                        width="100">
+                <div class="col-12 col-md-4">
+                    <img src="{{ asset('/uploads/employees/' . $employee->photo) }}" alt="Employee Photo"
+                        class="w-100 border rounded-md p-3 ">
+                    <button class="btn {{ $employee->status ? 'btn-success' : 'btn-danger' }}">
+                        {{ $employee->status ? 'Active' : 'Inactive' }}
+                    </button>
+                </div>
+                <div class="col-12 col-md-8">
+                    <div class="card">
+                        <div class="card-body p-0">
+                            <div class="overflow-auto">
+                                <table class="table border table-bordered table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <th class="table-primary">Employee ID</th>
+                                            <td>{{ $employee->id_card }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="table-primary">Name</th>
+                                            <td>{{ ucwords($employee->name) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="table-primary">Department</th>
+                                            <td>{{ ucwords($employee->department) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="table-primary">Designation</th>
+                                            <td>{{ ucwords($employee->designation) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="table-primary">Blood Group</th>
+                                            <td>{{ $employee->blood }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="table-primary">Salary</th>
+                                            <td>{{ $employee->salary }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="table-primary">Commission</th>
+                                            <td>{{ $employee->commission }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="table-primary">Email</th>
+                                            <td>{{ $employee->email }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="table-primary">Mobile</th>
+                                            <td>{{ $employee->mobile }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="table-primary">Birth Date</th>
+                                            <td>{{ $employee->birth_date }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="table-primary">Appointment Date</th>
+                                            <td>{{ $employee->appointment_date }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="table-primary">Join Date</th>
+                                            <td>{{ $employee->join_date }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="table-primary">Address</th>
+                                            <td>{{ $employee->address }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
 
-
-                    <p><strong>ID Card:</strong> {{ $employee->id_card }}</p>
-                    <p><strong>Name:</strong> {{ $employee->name }}</p>
-                    <p><strong>Department:</strong> {{ $employee->department }}</p>
-                    <p><strong>Designation:</strong> {{ $employee->designation }}</p>
-                    <p><strong>Blood Group:</strong> {{ $employee->blood }}</p>
-                    <p><strong>Salary:</strong> {{ $employee->salary }}</p>
-                    <p><strong>Commission:</strong> {{ $employee->commission }}</p>
-                    <p><strong>Email:</strong> {{ $employee->email }}</p>
-                    <p><strong>Mobile:</strong> {{ $employee->mobile }}</p>
-                    <p><strong>Birth Date:</strong> {{ $employee->birth_date }}</p>
-                    <p><strong>Appointment Date:</strong> {{ $employee->appointment_date }}</p>
-                    <p><strong>Join Date:</strong> {{ $employee->join_date }}</p>
-                    <p><strong>Address:</strong> {!! nl2br(e($employee->address)) !!}</p>
+                    </div>
                 </div>
             </div>
         </div>

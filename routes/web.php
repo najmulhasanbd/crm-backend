@@ -46,6 +46,9 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         Route::delete('/delete/{employee}', 'delete')->name('delete');
 
         Route::get('/show/{employee}', 'show')->name('show');
+
+        Route::get('/active/{employee}', 'active')->name('active');
+        Route::get('/inactive/{employee}', 'inactive')->name('inactive');
     });
 
     //department

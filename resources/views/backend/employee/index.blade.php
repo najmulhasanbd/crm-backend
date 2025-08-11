@@ -204,12 +204,14 @@
                                         <thead>
                                             <tr class="app-sort">
                                                 <th class="">ID</th>
+                                                <th class="">Card</th>
                                                 <th class="sort">Name</th>
                                                 <th class="sort">Email</th>
                                                 <th class="sort">Mobile</th>
                                                 <th class="sort">Designation</th>
                                                 <th class="sort">Department</th>
                                                 <th class="sort">Salary</th>
+                                                <th class="sort">Status</th>
                                                 <th class="sort">Action</th>
                                             </tr>
                                         </thead>
@@ -217,13 +219,28 @@
                                             @foreach ($employee as $key => $item)
                                                 <tr>
                                                     <td>{{ $key + 1 }}</td>
+                                                    <td>{{ ucwords($item->id_card) }}</td>
                                                     <td>{{ ucwords($item->name) }}</td>
                                                     <td>{{ $item->email }}</td>
                                                     <td>{{ $item->mobile }}</td>
                                                     <td>{{ ucwords($item->designation) }}</td>
                                                     <td>{{ ucwords($item->department) }}</td>
                                                     <td>{{ ucwords($item->salary) }}</td>
-
+                                                    <td>
+                                                        @if ($item->status == 1)
+                                                            <a href="{{ route('employee.inactive', $item->id) }}"
+                                                                class="btn btn-success btn-sm"
+                                                                data-name="{{ $item->name }}">
+                                                                Active
+                                                            </a>
+                                                        @else
+                                                            <a href="{{ route('employee.active', $item->id) }}"
+                                                                class="btn btn-danger btn-sm "
+                                                                data-name="{{ $item->name }}">
+                                                                InActive
+                                                            </a>
+                                                        @endif
+                                                    </td>
                                                     <td class="d-flex gap-2">
                                                         <a href="{{ route('employee.show', $item->id) }}"
                                                             class="btn btn-sm btn-info"> <i
@@ -250,9 +267,9 @@
                                                 <div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1"
                                                     aria-labelledby="editModalLabel{{ $item->id }}"
                                                     aria-hidden="true">
-                                                    <div class="modal-dialog">
+                                                    <div class="modal-dialog modal-lg">
                                                         <form action="{{ route('employee.update', $item->id) }}"
-                                                            method="POST">
+                                                            enctype="multipart/form-data" method="POST">
                                                             @csrf
                                                             @method('PUT')
                                                             <div class="modal-content">
@@ -265,158 +282,193 @@
                                                                         aria-label="Close"></button>
                                                                 </div>
                                                                 <div class="modal-body">
+                                                                    <div class="row">
+                                                                        <div class="col-12 col-md-6">
+                                                                            <div class="form-floating mb-3">
+                                                                                <input class="form-control" id="photo"
+                                                                                    name="photo" type="file">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-12 col-md-6">
+                                                                            <div class="form-floating mb-3">
+                                                                                <input class="form-control"
+                                                                                    id="id_card{{ $item->id }}"
+                                                                                    name="id_card"
+                                                                                    value="{{ $item->id_card }}" required
+                                                                                    type="text">
+                                                                                <label
+                                                                                    for="id_card{{ $item->id }}">Employee
+                                                                                    ID</label>
+                                                                            </div>
+                                                                        </div>
 
-                                                                    {{-- Employee ID --}}
-                                                                    <div class="form-floating mb-3">
-                                                                        <input class="form-control"
-                                                                            id="id_card{{ $item->id }}"
-                                                                            name="id_card" value="{{ $item->id_card }}"
-                                                                            required type="text">
-                                                                        <label for="id_card{{ $item->id }}">Employee
-                                                                            ID</label>
+                                                                        <div class="col-12 col-md-6">
+                                                                            <div class="form-floating mb-3">
+                                                                                <input class="form-control"
+                                                                                    id="name{{ $item->id }}"
+                                                                                    name="name"
+                                                                                    value="{{ $item->name }}" required
+                                                                                    type="text">
+                                                                                <label
+                                                                                    for="name{{ $item->id }}">Employee
+                                                                                    Name</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-12 col-md-6">
+                                                                            <div class="mb-3">
+                                                                                <label
+                                                                                    class="form-label">Department</label>
+                                                                                <select class="form-select"
+                                                                                    name="department"
+                                                                                    style="height: 60px">
+                                                                                    @foreach ($department as $dept)
+                                                                                        <option
+                                                                                            value="{{ $dept->name }}"
+                                                                                            {{ $item->department == $dept->name ? 'selected' : '' }}>
+                                                                                            {{ ucwords($dept->name) }}
+                                                                                        </option>
+                                                                                    @endforeach
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-12 col-md-6">
+                                                                            <div class="mb-3">
+                                                                                <label
+                                                                                    class="form-label">Designation</label>
+                                                                                <select class="form-select"
+                                                                                    name="designation"
+                                                                                    style="height: 60px">
+                                                                                    @foreach ($designation as $desig)
+                                                                                        <option
+                                                                                            value="{{ $desig->name }}"
+                                                                                            {{ $item->designation == $desig->name ? 'selected' : '' }}>
+                                                                                            {{ ucwords($desig->name) }}
+                                                                                        </option>
+                                                                                    @endforeach
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-12 col-md-6">
+                                                                            <div class="mb-3">
+                                                                                <label class="form-label">Blood
+                                                                                    Group</label>
+                                                                                <select class="form-select" name="blood"
+                                                                                    style="height: 60px">
+                                                                                    <option value="">Select Blood
+                                                                                        Group
+                                                                                    </option>
+                                                                                    @foreach (['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'] as $group)
+                                                                                        <option
+                                                                                            value="{{ $group }}"
+                                                                                            {{ $item->blood == $group ? 'selected' : '' }}>
+                                                                                            {{ $group }}
+                                                                                        </option>
+                                                                                    @endforeach
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-12 col-md-6">
+                                                                            <div class="form-floating mb-3">
+                                                                                <input class="form-control"
+                                                                                    id="salary{{ $item->id }}"
+                                                                                    name="salary"
+                                                                                    value="{{ $item->salary }}" required
+                                                                                    type="number" step="0.01">
+                                                                                <label
+                                                                                    for="salary{{ $item->id }}">Employee
+                                                                                    Salary</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-12 col-md-6">
+                                                                            <div class="form-floating mb-3">
+                                                                                <input class="form-control"
+                                                                                    id="commission{{ $item->id }}"
+                                                                                    name="commission"
+                                                                                    value="{{ $item->commission }}"
+                                                                                    required type="number"
+                                                                                    step="0.01">
+                                                                                <label
+                                                                                    for="commission{{ $item->id }}">Commission</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-12 col-md-6">
+                                                                            <div class="form-floating mb-3">
+                                                                                <input class="form-control"
+                                                                                    id="email{{ $item->id }}"
+                                                                                    name="email"
+                                                                                    value="{{ $item->email }}" required
+                                                                                    type="email">
+                                                                                <label
+                                                                                    for="email{{ $item->id }}">Email</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-12 col-md-6">
+                                                                            <div class="form-floating mb-3">
+                                                                                <input class="form-control"
+                                                                                    id="mobile{{ $item->id }}"
+                                                                                    name="mobile"
+                                                                                    value="{{ $item->mobile }}" required
+                                                                                    type="text">
+                                                                                <label
+                                                                                    for="mobile{{ $item->id }}">Mobile</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-12 col-md-6">
+                                                                            <div class="form-floating mb-3">
+                                                                                <input class="form-control"
+                                                                                    name="birth_date"
+                                                                                    id="birth_date{{ $item->id }}"
+                                                                                    value="{{ $item->birth_date }}"
+                                                                                    type="date">
+                                                                                <label
+                                                                                    for="birth_date{{ $item->id }}">Date
+                                                                                    of
+                                                                                    Birth</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-12 col-md-6">
+                                                                            <div class="form-floating mb-3">
+                                                                                <input class="form-control"
+                                                                                    name="appointment_date"
+                                                                                    id="appointment_date{{ $item->id }}"
+                                                                                    value="{{ $item->appointment_date }}"
+                                                                                    type="date">
+                                                                                <label
+                                                                                    for="appointment_date{{ $item->id }}">Date
+                                                                                    of Appointment</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-12 col-md-6">
+                                                                            <div class="form-floating mb-3">
+                                                                                <input class="form-control"
+                                                                                    id="join_date{{ $item->id }}"
+                                                                                    name="join_date"
+                                                                                    value="{{ $item->join_date }}"
+                                                                                    type="date">
+                                                                                <label
+                                                                                    for="join_date{{ $item->id }}">Joining
+                                                                                    Date</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-12 col-md-6">
+                                                                            <div class="form-floating mb-3">
+                                                                                <textarea name="address" id="address{{ $item->id }}" class="form-control" rows="5">{{ $item->address }}</textarea>
+                                                                                <label
+                                                                                    for="address{{ $item->id }}">Address</label>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
-
-                                                                    {{-- Name --}}
-                                                                    <div class="form-floating mb-3">
-                                                                        <input class="form-control"
-                                                                            id="name{{ $item->id }}" name="name"
-                                                                            value="{{ $item->name }}" required
-                                                                            type="text">
-                                                                        <label for="name{{ $item->id }}">Employee
-                                                                            Name</label>
+                                                                    <div class="modal-footer">
+                                                                        <button type="submit"
+                                                                            class="btn btn-primary">Update
+                                                                            Employee</button>
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-bs-dismiss="modal">Close</button>
                                                                     </div>
-
-                                                                    {{-- Department --}}
-                                                                    <div class="mb-3">
-                                                                        <label class="form-label">Department</label>
-                                                                        <select class="form-select" name="department"
-                                                                            style="height: 60px">
-                                                                            @foreach ($department as $dept)
-                                                                                <option value="{{ $dept->name }}"
-                                                                                    {{ $item->department == $dept->name ? 'selected' : '' }}>
-                                                                                    {{ ucwords($dept->name) }}
-                                                                                </option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </div>
-
-                                                                    {{-- Designation --}}
-                                                                    <div class="mb-3">
-                                                                        <label class="form-label">Designation</label>
-                                                                        <select class="form-select" name="designation"
-                                                                            style="height: 60px">
-                                                                            @foreach ($designation as $desig)
-                                                                                <option value="{{ $desig->name }}"
-                                                                                    {{ $item->designation == $desig->name ? 'selected' : '' }}>
-                                                                                    {{ ucwords($desig->name) }}
-                                                                                </option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </div>
-
-                                                                    {{-- Blood Group --}}
-                                                                    <div class="mb-3">
-                                                                        <label class="form-label">Blood Group</label>
-                                                                        <select class="form-select" name="blood"
-                                                                            style="height: 60px">
-                                                                            <option value="">Select Blood Group
-                                                                            </option>
-                                                                            @foreach (['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'] as $group)
-                                                                                <option value="{{ $group }}"
-                                                                                    {{ $item->blood == $group ? 'selected' : '' }}>
-                                                                                    {{ $group }}
-                                                                                </option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </div>
-
-                                                                    {{-- Salary --}}
-                                                                    <div class="form-floating mb-3">
-                                                                        <input class="form-control"
-                                                                            id="salary{{ $item->id }}" name="salary"
-                                                                            value="{{ $item->salary }}" required
-                                                                            type="number" step="0.01">
-                                                                        <label for="salary{{ $item->id }}">Employee
-                                                                            Salary</label>
-                                                                    </div>
-
-                                                                    {{-- Commission --}}
-                                                                    <div class="form-floating mb-3">
-                                                                        <input class="form-control"
-                                                                            id="commission{{ $item->id }}"
-                                                                            name="commission"
-                                                                            value="{{ $item->commission }}" required
-                                                                            type="number" step="0.01">
-                                                                        <label
-                                                                            for="commission{{ $item->id }}">Commission</label>
-                                                                    </div>
-
-                                                                    {{-- Email --}}
-                                                                    <div class="form-floating mb-3">
-                                                                        <input class="form-control"
-                                                                            id="email{{ $item->id }}" name="email"
-                                                                            value="{{ $item->email }}" required
-                                                                            type="email">
-                                                                        <label
-                                                                            for="email{{ $item->id }}">Email</label>
-                                                                    </div>
-
-                                                                    {{-- Mobile --}}
-                                                                    <div class="form-floating mb-3">
-                                                                        <input class="form-control"
-                                                                            id="mobile{{ $item->id }}" name="mobile"
-                                                                            value="{{ $item->mobile }}" required
-                                                                            type="text">
-                                                                        <label
-                                                                            for="mobile{{ $item->id }}">Mobile</label>
-                                                                    </div>
-
-                                                                    {{-- Birth Date --}}
-                                                                    <div class="form-floating mb-3">
-                                                                        <input class="form-control" name="birth_date"
-                                                                            id="birth_date{{ $item->id }}"
-                                                                            value="{{ $item->birth_date }}"
-                                                                            type="date">
-                                                                        <label for="birth_date{{ $item->id }}">Date of
-                                                                            Birth</label>
-                                                                    </div>
-
-                                                                    {{-- Appointment Date --}}
-                                                                    <div class="form-floating mb-3">
-                                                                        <input class="form-control"
-                                                                            name="appointment_date"
-                                                                            id="appointment_date{{ $item->id }}"
-                                                                            value="{{ $item->appointment_date }}"
-                                                                            type="date">
-                                                                        <label
-                                                                            for="appointment_date{{ $item->id }}">Date
-                                                                            of Appointment</label>
-                                                                    </div>
-
-                                                                    {{-- Join Date --}}
-                                                                    <div class="form-floating mb-3">
-                                                                        <input class="form-control"
-                                                                            id="join_date{{ $item->id }}"
-                                                                            name="join_date"
-                                                                            value="{{ $item->join_date }}"
-                                                                            type="date">
-                                                                        <label for="join_date{{ $item->id }}">Joining
-                                                                            Date</label>
-                                                                    </div>
-
-                                                                    {{-- Address --}}
-                                                                    <div class="form-floating mb-3">
-                                                                        <textarea name="address" id="address{{ $item->id }}" class="form-control" rows="5">{{ $item->address }}</textarea>
-                                                                        <label
-                                                                            for="address{{ $item->id }}">Address</label>
-                                                                    </div>
-
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="submit" class="btn btn-primary">Update
-                                                                        Employee</button>
-                                                                    <button type="button" class="btn btn-secondary"
-                                                                        data-bs-dismiss="modal">Close</button>
                                                                 </div>
                                                             </div>
                                                         </form>
