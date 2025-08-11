@@ -65,7 +65,7 @@
                                             <td>{{ $employee->mobile }}</td>
                                         </tr>
                                         <tr>
-                                            <th class="table-primary">Birth Date</th>
+                                            <th class="table-primary">Date of Birth</th>
                                             <td>{{ \Carbon\Carbon::parse($employee->birth_date)->format('d-M-Y') }}</td>
                                         </tr>
                                         <tr>
@@ -74,8 +74,21 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th class="table-primary">Join Date</th>
+                                            <th class="table-primary">Date of Join</th>
                                             <td>{{ \Carbon\Carbon::parse($employee->join_date)->format('d-M-Y') }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="table-primary">Duration of Work</th>
+                                            <td>
+                                                @php
+                                                    $joinDate = \Carbon\Carbon::parse($employee->join_date);
+                                                    $now = \Carbon\Carbon::now();
+                                                    $diff = $joinDate->diff($now);
+                                                @endphp
+
+                                                {{ $diff->y }} years {{ $diff->m }} months {{ $diff->d }}
+                                                days
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th class="table-primary">Address</th>
