@@ -66,15 +66,16 @@
                                         </tr>
                                         <tr>
                                             <th class="table-primary">Birth Date</th>
-                                            <td>{{ $employee->birth_date }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($employee->birth_date)->format('d-M-Y') }}</td>
                                         </tr>
                                         <tr>
                                             <th class="table-primary">Appointment Date</th>
-                                            <td>{{ $employee->appointment_date }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($employee->appointment_date)->format('d-M-Y') }}
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th class="table-primary">Join Date</th>
-                                            <td>{{ $employee->join_date }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($employee->join_date)->format('d-M-Y') }}</td>
                                         </tr>
                                         <tr>
                                             <th class="table-primary">Address</th>
@@ -84,7 +85,6 @@
                                 </table>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
