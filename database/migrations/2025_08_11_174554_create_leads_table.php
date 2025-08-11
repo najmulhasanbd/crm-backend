@@ -1,0 +1,42 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('leads', function (Blueprint $table) {
+            $table->id();
+            $table->string('lead_id')->unique()->nullable();
+            $table->string('name')->nullable();
+            $table->string('passport')->unique()->nullable();
+            $table->string('mobile')->unique()->nullable();
+            $table->string('whatsapp')->nullable();
+            $table->string('country');
+            $table->string('job_role')->nullable();
+            $table->string('age')->nullable();
+            $table->string('education')->nullable();
+            $table->string('experience')->nullable();
+            $table->date('follow_up')->nullable();
+            $table->string('assign_user');
+            $table->longText('note')->nullable();
+            $table->enum('status', ['Booked', 'Droped', 'On Process', 'Converted', 'Rejected', 'Need to Follow', 'Passport New', 'Payment New']);
+            $table->enum('priority', ['VIP', 'Low', 'Medium', 'High']);
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('leads');
+    }
+};
