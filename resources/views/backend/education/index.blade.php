@@ -55,7 +55,7 @@
                                                     </div>
                                                     <div class="modal-body">
 
-                                                        <div class="contact mb-3">
+                                                        <div class="form-floating mb-3">
                                                             <label class="form-label" for="name">Education Name</label>
                                                             <input class="form-control" id="name" name="name"
                                                                 placeholder="contact" required type="text">
@@ -92,7 +92,7 @@
                                                     <td class="d-flex gap-2">
                                                         <button class="btn btn-sm btn-success" data-bs-toggle="modal"
                                                             data-bs-target="#editModal{{ $item->id }}">
-                                                            <i class="ph-duotone ph-eye f-s-16"></i>
+                                                            <i class="ph-duotone ph-pencil f-s-16"></i>
                                                         </button>
 
                                                          <form action="{{ route('education.delete', $item->id) }}"

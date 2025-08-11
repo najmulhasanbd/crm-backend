@@ -56,10 +56,10 @@
                                                     </div>
                                                     <div class="modal-body">
 
-                                                        <div class="contact mb-3">
-                                                            <label class="form-label" for="name">Department Name</label>
+                                                        <div class="form-floating mb-3">
                                                             <input class="form-control" id="name" name="name"
-                                                                placeholder="contact" required type="text">
+                                                            placeholder="Department Name" required type="text">
+                                                            <label class="form-label" for="name">Department Name</label>
                                                         </div>
 
                                                     </div>
@@ -93,7 +93,7 @@
                                                     <td class="d-flex gap-2">
                                                         <button class="btn btn-sm btn-success" data-bs-toggle="modal"
                                                             data-bs-target="#editModal{{ $item->id }}">
-                                                            <i class="ph-duotone ph-eye f-s-16"></i>
+                                                            <i class="ph-duotone ph-pencil f-s-16"></i>
                                                         </button>
 
                                                         <form action="{{ route('department.delete', $item->id) }}"
@@ -124,11 +124,13 @@
                                                                         data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <label for="name{{ $item->id }}"
-                                                                        class="form-label">Department Name</label>
-                                                                    <input type="text" id="name{{ $item->id }}"
-                                                                        name="name" value="{{ $item->name }}"
-                                                                        class="form-control" required>
+                                                                    <div class="form-floating">
+                                                                        <label for="name{{ $item->id }}"
+                                                                            class="form-label">Department Name</label>
+                                                                            <input type="text" id="name{{ $item->id }}"
+                                                                            name="name" placeholder="Department Name" value="{{ $item->name }}"
+                                                                            class="form-control" required>
+                                                                        </div>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="submit" class="btn btn-primary">Update
