@@ -22,6 +22,15 @@
                 </div>
             </div>
             <!-- Breadcrumb end -->
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <div class="row">
                 <!-- List Js Table start -->
                 <div class="col-12">
@@ -99,7 +108,7 @@
                                                                 <div class="form-floating mb-3">
                                                                     <input class="form-control" id="age"
                                                                         name="age" placeholder="age" required
-                                                                        type="text">
+                                                                        type="number">
                                                                     <label class="form-label" for="age">Age</label>
                                                                 </div>
                                                             </div>
@@ -538,7 +547,6 @@ if (is_string($followUp) && str_starts_with($followUp, '[')) {
             </div>
         </div>
     </main>
-
 
     <script>
         @if ($errors->any())

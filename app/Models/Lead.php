@@ -13,5 +13,8 @@ class Lead extends Model
         return $this->belongsTo(User::class, 'assign_user');
     }
 
-
+ public function leadassign()
+    {
+        return $this->belongsTo(leadassign::class);
+    }
 }

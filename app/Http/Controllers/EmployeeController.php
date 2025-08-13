@@ -30,8 +30,8 @@ class EmployeeController extends Controller
 
     public function store(Request $request)
     {
-        // Validation rules
-        $request->validate([
+        // Validation
+        $validated = $request->validate([
             'id_card' => 'required|string|max:50|unique:employees,id_card',
             'name' => 'required|string|max:255',
             'department' => 'required|string|max:255',
@@ -51,37 +51,41 @@ class EmployeeController extends Controller
             'email.unique' => 'This Email already exists!',
         ]);
 
-        if ($request->hasFile('photo')) {
-            $file = $request->file('photo');
-            $filename = $request->name . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
-
-            $file->move(public_path('uploads/employees'), $filename);
-        } else {
+        try {
+            // Photo upload
             $filename = null;
-        }
-        Employee::create([
-            'id_card'          => $request->id_card,
-            'name'             => $request->name,
-            'department'       => $request->department,
-            'designation'      => $request->designation,
-            'blood'            => $request->blood,
-            'salary'           => $request->salary,
-            'commission'       => $request->commission ?? 0,
-            'email'            => $request->email,
-            'mobile'           => $request->mobile,
-            'birth_date'       => $request->birth_date,
-            'appointment_date' => $request->appointment_date,
-            'join_date'        => $request->join_date,
-            'address'          => $request->address,
-            'status'           => 0,
-            'photo'            => $filename,
-        ]);
+            if ($request->hasFile('photo')) {
+                $file = $request->file('photo');
+                $filename = $request->name . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
+                $file->move(public_path('uploads/employees'), $filename);
+            }
 
-        return redirect()->back()->with([
-            'message' => 'Employee Created Successfully!',
-            'alert-type' => 'success'
-        ]);
+            // Create Employee
+            Employee::create([
+                'id_card' => $validated['id_card'],
+                'name' => $validated['name'],
+                'department' => $validated['department'],
+                'designation' => $validated['designation'],
+                'blood' => $validated['blood'],
+                'salary' => $validated['salary'],
+                'commission' => $validated['commission'] ?? 0,
+                'email' => $validated['email'],
+                'mobile' => $validated['mobile'],
+                'birth_date' => $validated['birth_date'],
+                'appointment_date' => $validated['appointment_date'],
+                'join_date' => $validated['join_date'],
+                'address' => $validated['address'],
+                'status' => 0,
+                'photo' => $filename,
+            ]);
+
+            return redirect()->back()->with('success', 'Employee created successfully!');
+        } catch (\Exception $e) {
+            // যেকোনো error Blade-এ দেখাবে
+            return redirect()->back()->withInput()->with('error', 'Something went wrong: ' . $e->getMessage());
+        }
     }
+
 
     public function update(Request $request, Employee $employee)
     {

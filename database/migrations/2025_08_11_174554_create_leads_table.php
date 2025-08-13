@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('assign_user');
             $table->longText('note')->nullable();
             $table->enum('status', ['Booked', 'Droped', 'On Process', 'Converted', 'Rejected', 'Need to Follow', 'Passport New', 'Payment New']);
-            $table->enum('priority', ['VIP', 'Low', 'Medium', 'High']);
+            $table->enum('priority', ['VIP', 'Low Priority', 'Medium Priority', 'High Priority']);
             $table->timestamps();
         });
     }

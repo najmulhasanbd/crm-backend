@@ -45,6 +45,7 @@
                  </a>
                  <ul class="collapse" id="dashboard">
                      <li><a href="{{ route('lead.index') }}">Leads</a></li>
+                     <li><a href="{{ route('lead-assign.index') }}">Lead Assign</a></li>
                  </ul>
              </li>
              <li class="no-sub">
