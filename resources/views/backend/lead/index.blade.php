@@ -228,7 +228,7 @@
                                                 <th class="sort">Mobile</th>
                                                 <th class="sort">Country</th>
                                                 <th class="sort">Assign</th>
-                                                <th class="sort">Follow Up</th>
+                                                <th class="sort">FollowUp</th>
                                                 <th class="sort">Action</th>
                                             </tr>
                                         </thead>

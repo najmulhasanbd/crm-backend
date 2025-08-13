@@ -127,13 +127,13 @@ class LeadController extends Controller
         ]);
     }
 
+public function show(Lead $lead)
+{
+    $lead->load('assignedEmployees'); // eager load assigned employees
+    $jobRoles = JobRole::latest()->get();
+    $education = EducationQualification::latest()->get();
 
-    public function show(Lead $lead)
-    {
-        $lead->load('user'); // or use the line above
-        $jobRoles = JobRole::latest()->get();
-        $education = EducationQualification::latest()->get();
+    return view('backend.lead.show', compact('lead', 'jobRoles', 'education'));
+}
 
-        return view('backend.lead.show', compact('lead', 'jobRoles', 'education'));
-    }
 }

@@ -87,15 +87,11 @@
                                     </tr>
                                     @php
                                         $followUps = $lead->follow_up;
-
-                                        // Convert JSON or single value into array
                                         if (is_string($followUps) && str_starts_with($followUps, '[')) {
                                             $followUps = json_decode($followUps, true);
                                         } elseif (!is_array($followUps)) {
                                             $followUps = [$followUps];
                                         }
-
-                                        // Remove empty/null values
                                         $followUps = array_filter($followUps);
                                     @endphp
 
@@ -126,8 +122,23 @@
                                     </tr>
                                     <tr>
                                         <th>Assign Employee</th>
-                                        <td>Assign User</td>
+                                        <td>
+                                            @if ($lead->assignedEmployees->count())
+                                                @foreach ($lead->assignedEmployees as $employee)
+                                                    <a href="{{ route('employee.show', $employee->id) }}"
+                                                        class="text-decoration-none">
+                                                        {{ ucwords($employee->name) }}
+                                                    </a>
+                                                    @if (!$loop->last)
+                                                        ,
+                                                    @endif
+                                                @endforeach
+                                            @else
+                                                <span class="text-muted">{{ ucwords($lead->user->name ?? 'N/A') }}</span>
+                                            @endif
+                                        </td>
                                     </tr>
+
                                     <tr>
                                         <th>Collected Lead Employee</th>
                                         <td>{{ ucwords($lead->user->name ?? 'N/A') }}</td>
