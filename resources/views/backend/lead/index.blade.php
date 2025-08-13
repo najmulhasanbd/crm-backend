@@ -227,7 +227,6 @@
                                                 <th class="sort">Whatsap</th>
                                                 <th class="sort">Mobile</th>
                                                 <th class="sort">Country</th>
-                                                <th class="sort">Assign</th>
                                                 <th class="sort">FollowUp</th>
                                                 <th class="sort">Action</th>
                                             </tr>
@@ -242,7 +241,6 @@
                                                     <td>{{ $item->mobile }}</td>
                                                     <td>{{ $item->mobile }}</td>
                                                     <td>{{ ucwords($item->country) }}</td>
-                                                    <td>{{ ucwords($item->name) }}</td>
 
                                                     @php
                                                         $followUp = $item->follow_up;

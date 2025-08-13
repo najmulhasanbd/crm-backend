@@ -124,15 +124,17 @@
                                         <th>Assign Employee</th>
                                         <td>
                                             @if ($lead->assignedEmployees->count())
-                                                @foreach ($lead->assignedEmployees as $employee)
-                                                    <a href="{{ route('employee.show', $employee->id) }}"
-                                                        class="text-decoration-none">
-                                                        {{ ucwords($employee->name) }}
-                                                    </a>
-                                                    @if (!$loop->last)
-                                                        ,
-                                                    @endif
-                                                @endforeach
+                                                @if ($lead->assignedEmployees->count())
+                                                    @foreach ($lead->assignedEmployees as $employee)
+                                                        <a href="{{ route('employee.show', $employee->id) }}"
+                                                            target="_blank"
+                                                            class="btn btn-sm btn-outline-primary me-1 mb-1 text-decoration-none">
+                                                            {{ ucwords($employee->name) }}
+                                                        </a>
+                                                    @endforeach
+                                                @else
+                                                    <span class="text-muted">No employee assigned</span>
+                                                @endif
                                             @else
                                                 <span class="text-muted">{{ ucwords($lead->user->name ?? 'N/A') }}</span>
                                             @endif

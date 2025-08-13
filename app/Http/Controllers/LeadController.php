@@ -94,7 +94,6 @@ class LeadController extends Controller
             'note' => 'nullable|string',
         ]);
 
-        // Follow-up history
         $history = is_array(json_decode($lead->follow_up, true))
             ? json_decode($lead->follow_up, true)
             : [];
@@ -129,7 +128,7 @@ class LeadController extends Controller
 
 public function show(Lead $lead)
 {
-    $lead->load('assignedEmployees'); // eager load assigned employees
+    $lead->load('assignedEmployees'); 
     $jobRoles = JobRole::latest()->get();
     $education = EducationQualification::latest()->get();
 

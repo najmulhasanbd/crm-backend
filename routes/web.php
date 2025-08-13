@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardContrller;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\EducationQualificationController;
@@ -20,9 +21,11 @@ Route::get('/', function () {
 
 
 Route::prefix('admin')->middleware(['auth'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('backend.index');
-    })->name('admin.dashboard')->middleware('verified');
+    // Route::get('/dashboard', function () {
+    //     return view('backend.index');
+    // })->name('admin.dashboard')->middleware('verified');
+     Route::get('/dashboard', [DashboardContrller::class, 'index'])
+        ->name('admin.dashboard');
 
     //lead
     Route::prefix('lead')->name('lead.')->controller(LeadController::class)->group(function () {
