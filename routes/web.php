@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\AssignLeadController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\EducationQualificationController;
 use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobRoleController;
+use App\Http\Controllers\LeadController;
 use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
@@ -22,6 +24,17 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         return view('backend.index');
     })->name('admin.dashboard')->middleware('verified');
 
+    //lead
+    Route::prefix('lead')->name('lead.')->controller(LeadController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/store', 'store')->name('store');
+        Route::put('/update/{lead}', 'update')->name('update');
+
+        Route::get('/show/{lead}', 'show')->name('show');
+
+        Route::get('/active/{lead}', 'active')->name('active');
+        Route::get('/inactive/{lead}', 'inactive')->name('inactive');
+    });
 
     //education qualification
     Route::prefix('education')->name('education.')->controller(EducationQualificationController::class)->group(function () {
@@ -65,6 +78,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         Route::put('/update/{designation}', 'update')->name('update');
         Route::delete('/delete/{designation}', 'delete')->name('delete');
     });
+
 });
 
 

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('age')->nullable();
             $table->string('education')->nullable();
             $table->string('experience')->nullable();
-            $table->date('follow_up')->nullable();
+            $table->json('follow_up')->nullable();
             $table->string('assign_user');
             $table->longText('note')->nullable();
             $table->enum('status', ['Booked', 'Droped', 'On Process', 'Converted', 'Rejected', 'Need to Follow', 'Passport New', 'Payment New']);
