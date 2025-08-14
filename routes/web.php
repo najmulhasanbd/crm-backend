@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DashboardContrller;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DesignationController;
@@ -54,6 +55,18 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         Route::delete('/delete/{jobRole}', 'delete')->name('delete');
     });
 
+    //admin
+    Route::prefix('user')->name('user.')->controller(AdminController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/store', 'store')->name('store');
+        Route::put('/update/{user}', 'update')->name('update');
+        Route::delete('/delete/{user}', 'delete')->name('delete');
+
+        Route::get('/show/{user}', 'show')->name('show');
+
+        Route::get('/active/{user}', 'active')->name('active');
+        Route::get('/inactive/{user}', 'inactive')->name('inactive');
+    });
     //employee
     Route::prefix('employee')->name('employee.')->controller(EmployeeController::class)->group(function () {
         Route::get('/', 'index')->name('index');

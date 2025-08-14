@@ -13,13 +13,32 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+
+            // Login basic info
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+
+            // Employee-specific info (merged from employees table)
+            $table->string('id_card')->unique()->nullable(); // nullable so admin account work kore
+            $table->string('photo')->nullable();
+            $table->string('department')->nullable();
+            $table->string('designation')->nullable();
+            $table->string('blood', 3)->nullable();
+            $table->double('salary', 10, 2)->nullable();
+            $table->double('commission', 8, 2)->default(0);
+            $table->string('mobile', 11)->nullable();
+            $table->date('birth_date')->nullable();
+            $table->date('appointment_date')->nullable();
+            $table->date('join_date')->nullable();
+            $table->longText('address')->nullable();
+            $table->tinyInteger('status')->default(0)->comment('1 => active, 0 => inactive');
+
             $table->timestamps();
         });
+
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();

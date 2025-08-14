@@ -38,11 +38,11 @@
                                                 type="button"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <div class="form-group">
-                                                <label for="employee_id">Employee</label>
-                                                <select name="employee_id" id="employee_id" class="form-select">
+                                            <div class="form-group mb-3">
+                                                <label for="user_id">Employee</label>
+                                                <select name="user_id" id="user_id" class="form-select">
                                                     <option value="">Select Employee</option>
-                                                    @foreach ($employee as $item)
+                                                    @foreach ($user as $item)
                                                         <option value="{{ $item->id }}">
                                                             {{ ucwords($item->name) }}</option>
                                                     @endforeach
@@ -51,7 +51,7 @@
                                             <div class="form-group">
                                                 <label for="lead_id">Lead</label>
                                                 <select name="lead_id" id="lead_id" class="form-select">
-                                                    <option value="">Select Employee</option>
+                                                    <option value="">Select Lead</option>
                                                     @foreach ($lead as $item)
                                                         <option value="{{ $item->id }}">
                                                             {{ ucwords($item->lead_id) }}</option>
@@ -98,7 +98,7 @@
                                         @foreach ($assign as $key => $item)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
-                                                <td>{{ ucwords($item->employee->name) }}</td>
+                                                <td>{{ ucwords($item->user->name) }}</td>
                                                 <td>{{ ucwords($item->lead->lead_id) }}</td>
 
                                                 <td class="d-flex gap-2">
@@ -136,14 +136,14 @@
                                                             <div class="modal-body">
                                                                 <div class="form-group mb-3">
                                                                     <label
-                                                                        for="employee_id_{{ $item->id }}">Employee</label>
-                                                                    <select name="employee_id"
-                                                                        id="employee_id_{{ $item->id }}"
+                                                                        for="user_id_{{ $item->id }}">Employee</label>
+                                                                    <select name="user_id"
+                                                                        id="user_id_{{ $item->id }}"
                                                                         class="form-select">
                                                                         <option value="">Select Employee</option>
-                                                                        @foreach ($employee as $emp)
+                                                                        @foreach ($user as $emp)
                                                                             <option value="{{ $emp->id }}"
-                                                                                {{ $item->employee_id == $emp->id ? 'selected' : '' }}>
+                                                                                {{ $item->user_id == $emp->id ? 'selected' : '' }}>
                                                                                 {{ ucwords($emp->name) }}
                                                                             </option>
                                                                         @endforeach

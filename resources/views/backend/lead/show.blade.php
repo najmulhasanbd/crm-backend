@@ -126,10 +126,9 @@
                                             @if ($lead->assignedEmployees->count())
                                                 @if ($lead->assignedEmployees->count())
                                                     @foreach ($lead->assignedEmployees as $employee)
-                                                        <a href="{{ route('employee.show', $employee->id) }}"
-                                                            target="_blank"
+                                                        <a href="{{ route('user.show', $employee->id) }}" target="_blank"
                                                             class="btn btn-sm btn-outline-primary me-1 mb-1 text-decoration-none">
-                                                            {{ ucwords($employee->name) }}
+                                                            {{ ucwords($employee->name ?? '') }}
                                                         </a>
                                                     @endforeach
                                                 @else

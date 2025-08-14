@@ -2,7 +2,7 @@
      <div class="app-logo">
          <a class="logo d-inline-block" href="{{ route('admin.dashboard') }}">
              {{-- <img alt="#" src="{{asset('backend')}}/assets/images/logo/1.png"> --}}
-             <h3></h3>
+             <h3>Flyori Travel</h3>
          </a>
 
          <span class="bg-light-primary toggle-semi-nav d-flex-center">
@@ -107,6 +107,20 @@
                      </svg>
                      Blank Page
                  </a>
+             </li>
+             <li>
+                 <a aria-expanded="false" data-bs-toggle="collapse" href="#administation">
+                     <svg stroke="currentColor" stroke-width="1.5">
+                         <use
+                             xlink:href="https://phpstack-1384472-5121645.cloudwaysapps.com/template/html/ki-admin/assets/svg/_sprite.svg#home">
+                         </use>
+                     </svg>
+                     Role & Permission
+                 </a>
+                 <ul class="collapse" id="administation">
+                     <li><a href="{{ route('user.index') }}">Admins</a></li>
+                     {{-- <li><a href="{{ route('lead-assign.index') }}">Lead Assign</a></li> --}}
+                 </ul>
              </li>
          </ul>
      </div>

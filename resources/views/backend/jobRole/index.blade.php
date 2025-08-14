@@ -90,7 +90,7 @@
                                                 <td class="d-flex gap-2">
                                                     <button class="btn btn-sm btn-success" data-bs-toggle="modal"
                                                         data-bs-target="#editModal{{ $item->id }}">
-                                                        <i class="ph-duotone ph-eye f-s-16"></i>
+                                                        <i class="ph-duotone ph-pencil f-s-16"></i>
                                                     </button>
 
                                                     <form action="{{ route('jobRole.delete', $item->id) }}" method="POST"

@@ -15,7 +15,7 @@ class Lead extends Model
     // Lead.php
     public function assignedEmployees()
     {
-        return $this->belongsToMany(Employee::class, 'lead_assigns', 'lead_id', 'employee_id');
+        return $this->belongsToMany(User::class, 'lead_assigns', 'lead_id', 'user_id');
     }
 
     public function leadassign()

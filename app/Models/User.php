@@ -21,7 +21,24 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'id_card',
+        'photo',
+        'department',
+        'designation',
+        'blood',
+        'salary',
+        'commission',
+        'mobile',
+        'birth_date',
+        'appointment_date',
+        'join_date',
+        'address',
+        'status'
     ];
+ public function leadassign()
+    {
+        return $this->belongsTo(leadassign::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.

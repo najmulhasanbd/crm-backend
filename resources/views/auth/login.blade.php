@@ -64,7 +64,7 @@
     <link href="{{ asset('backend') }}/assets/images/logo/favicon.png" rel="icon" type="image/x-icon">
     <link href="{{ asset('backend') }}/assets/images/logo/favicon.png" rel="shortcut icon" type="image/x-icon">
 
-    <title>Sign In | </title>
+    <title>Sign In | Flyori Travel </title>
 
     <!--font-awesome-css-->
     <link href="{{ asset('backend') }}/assets/vendor/fontawesome/css/all.css" rel="stylesheet">
@@ -117,7 +117,7 @@
                                     <div class="col-12">
                                         <div class="mb-5 text-center text-lg-start">
                                             <h2 class="text-white f-w-600">Welcome To <span class="text-dark">
-                                                    !</span> </h2>
+                                                    Flyori Travel!</span> </h2>
                                         </div>
                                     </div>
 
@@ -138,22 +138,32 @@
 
                                         <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                     </div> --}}
-
                                     <div class="col-12">
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" name="email" id="UserName"
-                                                placeholder="enter email" type="email" required autofocus
-                                                autocomplete="email">
+                                            <input
+                                                class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}""
+                                                name="email" id="UserName" placeholder="enter email" type="email"
+                                                required autofocus autocomplete="email">
                                             <label for="UserName">enter email</label>
+                                            @error('email')
+                                                <div class="invalid-feedback">
+                                                    <span class="text-white">{{ $message }}</span>
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" id="floatingInput" placeholder="enter password"
-                                                type="password" name="password">
+                                            <input class="form-control @error('email') is-invalid @enderror"
+                                                id="floatingInput" placeholder="enter password" type="password"
+                                                name="password">
                                             <label for="floatingInput">Password</label>
-
                                         </div>
+                                        @error('password')
+                                            <div class="invalid-feedback">
+                                                <span class="text-white">{{ $message }}</span>
+                                            </div>
+                                        @enderror
                                         {{-- @if (Route::has('password.request'))
                                             <div class="text-end ">
                                                 <a class="text-dark f-w-500 text-decoration-underline"
@@ -170,7 +180,13 @@
 
                                         <button class="btn btn-primary btn-lg w-100" type="submit">Sign In</button>
                                     </div>
+                                </div>
                             </form>
+                            @if (session('message'))
+                                <script>
+                                    toastr.{{ session('alert-type', 'info') }}("{{ session('message') }}");
+                                </script>
+                            @endif
                         </div>
                     </div>
                 </div>

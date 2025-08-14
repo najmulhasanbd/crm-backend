@@ -21,44 +21,49 @@ class LeadController extends Controller
     public function store(Request $request)
     {
         try {
-            $validated = $request->validate([
-                'lead_id' => 'required|string|max:50|unique:leads,lead_id',
-                'name'        => 'required|string|max:255',
-                'passport'    => 'required|string|unique:leads,passport',
-                'mobile'      => 'required|string|unique:leads,mobile',
-                'whatsapp'    => 'nullable|string',
-                'age'         => 'required|numeric',
-                'country'     => 'required|string',
-                'job_role'    => 'required|string',
-                'experience'  => 'required|string',
-                'follow_up'   => 'required|date',
-                'education'   => 'required|string',
-                'priority'    => 'required|string|max:50',
-                'status'      => 'required|string|max:50',
-                'note'        => 'nullable|string',
-            ], [
-                'passport.unique' => 'This passport number already exists!',
-                'mobile.unique'   => 'This mobile number already exists!',
-                'lead_id.unique'  => 'This Lead ID already exists!',
-            ]);
+            $validated = $request->validate(
+                [
+                    'lead_id' => 'required|string|max:50|unique:leads,lead_id',
+                    'name' => 'required|string|max:255',
+                    'passport' => 'required|string|unique:leads,passport',
+                    'mobile' => ['required', 'string', 'unique:leads,mobile', 'digits:11', 'regex:/^01\d{9}$/'],
+                    'whatsapp' => 'nullable|string',
+                    'age' => 'required|numeric',
+                    'country' => 'required|string',
+                    'job_role' => 'required|string',
+                    'experience' => 'required|string',
+                    'follow_up' => 'required|date',
+                    'education' => 'required|string',
+                    'priority' => 'required|string|max:50',
+                    'status' => 'required|string|max:50',
+                    'note' => 'nullable|string',
+                ],
+                [
+                    'passport.unique' => 'This passport number already exists!',
+                    'mobile.unique' => 'This mobile number already exists!',
+                    'mobile.digits' => 'Mobile number must be exactly 11 digits.',
+                    'mobile.regex' => 'Mobile number must start with 01.',
+                    'lead_id.unique' => 'This Lead ID already exists!',
+                ],
+            );
 
             $leadId = 'LD' . $validated['lead_id'];
 
             Lead::create([
-                'lead_id'     => $leadId,
-                'name'        => $validated['name'],
-                'passport'    => $validated['passport'],
-                'mobile'      => $validated['mobile'],
-                'whatsapp'    => $validated['whatsapp'] ?? null,
-                'age'         => $validated['age'],
-                'country'     => $validated['country'],
-                'job_role'    => $validated['job_role'],
-                'experience'  => $validated['experience'],
-                'follow_up'   => json_encode([$validated['follow_up']]),
-                'education'   => $validated['education'],
-                'priority'    => $validated['priority'],
-                'status'      => $validated['status'],
-                'note'        => $validated['note'] ?? null,
+                'lead_id' => $leadId,
+                'name' => $validated['name'],
+                'passport' => $validated['passport'],
+                'mobile' => $validated['mobile'],
+                'whatsapp' => $validated['whatsapp'] ?? null,
+                'age' => $validated['age'],
+                'country' => $validated['country'],
+                'job_role' => $validated['job_role'],
+                'experience' => $validated['experience'],
+                'follow_up' => json_encode([$validated['follow_up']]),
+                'education' => $validated['education'],
+                'priority' => $validated['priority'],
+                'status' => $validated['status'],
+                'note' => $validated['note'] ?? null,
                 'assign_user' => Auth::id(),
             ]);
 
@@ -70,9 +75,12 @@ class LeadController extends Controller
             $lastLead = Lead::latest('id')->first();
             $lastNumber = $lastLead ? str_replace('LD', '', $lastLead->lead_id) : 'none';
 
-            return redirect()->back()->withInput()->withErrors([
-                'lead_id' => "Lead ID already exists. Last Lead number in DataBase is LD{$lastNumber}. Please choose another ID."
-            ]);
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors([
+                    'lead_id' => "Lead ID already exists. Last Lead number in DataBase is LD{$lastNumber}. Please choose another ID.",
+                ]);
         }
     }
 
@@ -94,9 +102,7 @@ class LeadController extends Controller
             'note' => 'nullable|string',
         ]);
 
-        $history = is_array(json_decode($lead->follow_up, true))
-            ? json_decode($lead->follow_up, true)
-            : [];
+        $history = is_array(json_decode($lead->follow_up, true)) ? json_decode($lead->follow_up, true) : [];
 
         if (!in_array($validated['follow_up'], $history)) {
             $history[] = $validated['follow_up'];
@@ -120,19 +126,20 @@ class LeadController extends Controller
             'assign_user' => Auth::id(),
         ]);
 
-        return redirect()->route('lead.index')->with([
-            'message' => "Lead updated successfully!",
-            'alert-type' => 'success'
-        ]);
+        return redirect()
+            ->route('lead.index')
+            ->with([
+                'message' => 'Lead updated successfully!',
+                'alert-type' => 'success',
+            ]);
     }
 
-public function show(Lead $lead)
-{
-    $lead->load('assignedEmployees'); 
-    $jobRoles = JobRole::latest()->get();
-    $education = EducationQualification::latest()->get();
+    public function show(Lead $lead)
+    {
+        $lead->load('assignedEmployees');
+        $jobRoles = JobRole::latest()->get();
+        $education = EducationQualification::latest()->get();
 
-    return view('backend.lead.show', compact('lead', 'jobRoles', 'education'));
-}
-
+        return view('backend.lead.show', compact('lead', 'jobRoles', 'education'));
+    }
 }

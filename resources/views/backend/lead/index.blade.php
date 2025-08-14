@@ -68,12 +68,13 @@
                                                         <input class="form-control" id="mobile" name="mobile"
                                                             placeholder="Mobile" required type="text">
                                                         <label class="form-label" for="mobile">Mobile</label>
+                                                        <div class="invalid-feedback" id="mobileError"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-md-6">
                                                     <div class="form-floating mb-3">
                                                         <input class="form-control" id="whatsapp" name="whatsapp"
-                                                            placeholder="whatsapp" required type="text">
+                                                            placeholder="whatsapp" required type="number">
                                                         <label class="form-label" for="whatsapp">Whatsapp</label>
                                                     </div>
                                                 </div>
@@ -119,7 +120,7 @@
                                                 <div class="col-12 col-md-6">
                                                     <div class="form-floating mb-3">
                                                         <input class="form-control basic-date" id="follow_up"
-                                                            name="follow_up" placeholder="YYYY-MM-DD" type="text"
+                                                            name="follow_up" placeholder="YYYY-MM-DD" type="date"
                                                             required>
                                                         <label class="form-label" for="follow_up">Follow Up</label>
                                                     </div>
@@ -538,5 +539,20 @@ $lastDate = $followUp
                 toastr.error("{{ $error }}");
             @endforeach
         @endif
+    </script>
+    <script>
+        const mobileInput = document.getElementById('mobile');
+        const mobileError = document.getElementById('mobileError');
+
+        mobileInput.addEventListener('input', function() {
+            const val = this.value;
+            if (!/^01\d{0,9}$/.test(val)) {
+                mobileInput.classList.add('is-invalid');
+                mobileError.textContent = 'Mobile number must start with 01 and be up to 11 digits.';
+            } else {
+                mobileInput.classList.remove('is-invalid');
+                mobileError.textContent = '';
+            }
+        });
     </script>
 @endsection

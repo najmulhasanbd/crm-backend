@@ -8,10 +8,11 @@ class LeadAssign extends Model
 {
      protected $guarded = [];
 
-     public function employee()
+     public function user()
      {
-          return $this->belongsTo(Employee::class);
+          return $this->belongsTo(User::class, 'user_id');
      }
+
      public function lead()
      {
           return $this->belongsTo(Lead::class);
