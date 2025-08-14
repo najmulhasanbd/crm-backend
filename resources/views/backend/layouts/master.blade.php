@@ -42,9 +42,14 @@
 
     <!-- simplebar css-->
     <link href="{{ asset('backend') }}/assets/vendor/simplebar/simplebar.css" rel="stylesheet" type="text/css">
+    <!-- Data Table css-->
+    <link href="{{ asset('backend') }}/assets/vendor/datatable/jquery.dataTables.min.css" rel="stylesheet"
+        type="text/css">
 
     <!-- App css-->
     <link href="{{ asset('backend') }}/assets/css/style.css" rel="stylesheet" type="text/css">
+
+
 
     <!-- Responsive css-->
     <link href="{{ asset('backend/assets/css/responsive.css') }}" rel="stylesheet" type="text/css">
@@ -95,7 +100,9 @@
 
     <!-- Simple bar js-->
     <script src="{{ asset('backend') }}/assets/vendor/simplebar/simplebar.js"></script>
-
+    <!-- data table js -->
+    <script src="{{ asset('backend') }}/assets/vendor/datatable/jquery.dataTables.min.js"></script><!-- js-->
+    <script src="{{ asset('backend') }}/assets/js/data_table.js"></script>
     <!-- phosphor js -->
     <script src="{{ asset('backend') }}/assets/vendor/phosphor/phosphor.js"></script>
 
@@ -115,6 +122,8 @@
     <script src="{{ asset('backend') }}/assets/js/script.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
 
     <script>
         @if (Session::has('message'))

@@ -6,9 +6,9 @@
 
             <!-- Breadcrumb start -->
             <div class="row m-1">
-                <div class="col-12 ">
+                <div class="col-12 col-md-6">
                     <h4 class="main-title">Department List </h4>
-                    <ul class="app-line-breadcrumbs mb-3">
+                    <ul class="app-line-breadcrumbs">
                         <li class="">
                             <a class="f-s-14 f-w-500" href="{{ route('department.index') }}">
                                 <span>
@@ -21,62 +21,61 @@
                         </li>
                     </ul>
                 </div>
+                <div class="col-12 col-md-6 d-flex justify-content-end">
+                    <div class="list-table-header d-flex justify-content-sm-between">
+                        <button class="btn btn-primary" data-bs-target="#exampleModal" data-bs-toggle="modal"
+                            type="button">Add
+                        </button>
+                        <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="exampleModal"
+                            tabindex="-1">
+                            <form id="add_employee_form" method="POST" action="{{ route('department.store') }}">
+                                @csrf
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Add
+                                                Department
+                                            </h1>
+                                            <button aria-label="Close" class="btn-close m-0" data-bs-dismiss="modal"
+                                                type="button"></button>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <div class="form-floating mb-3">
+                                                <input class="form-control" id="name" name="name"
+                                                    placeholder="Department Name" required type="text">
+                                                <label class="form-label" for="name">Department
+                                                    Name</label>
+                                            </div>
+
+                                        </div>
+                                        <div class="modal-footer add">
+                                            <input class="btn btn-secondary" data-bs-dismiss="modal" type="button"
+                                                value="Close">
+                                            <input class="btn btn-primary" id="add-btn" type="submit" value="Add">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Breadcrumb end -->
-
-            <div class="row">
-                <!-- List Js Table start -->
-                <div class="col-xxl-8">
-                    @if ($errors->has('name'))
-                        <div class="alert alert-danger">
-                            {{ $errors->first('name') }}
-                        </div>
-                    @endif
-                    <div class="card equal-card ">
-                        <div class="card-body p-0">
-                            <div id="myTable">
-                                <div class="list-table-header d-flex justify-content-sm-between mb-3">
-                                    <button class="btn btn-primary" data-bs-target="#exampleModal" data-bs-toggle="modal"
-                                        type="button">Add
-                                    </button>
-                                    <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade"
-                                        id="exampleModal" tabindex="-1">
-                                        <form id="add_employee_form" method="POST"
-                                            action="{{ route('department.store') }}">
-                                            @csrf
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Add
-                                                            Department
-                                                        </h1>
-                                                        <button aria-label="Close" class="btn-close m-0"
-                                                            data-bs-dismiss="modal" type="button"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-
-                                                        <div class="form-floating mb-3">
-                                                            <input class="form-control" id="name" name="name"
-                                                                placeholder="Department Name" required type="text">
-                                                            <label class="form-label" for="name">Department Name</label>
-                                                        </div>
-
-                                                    </div>
-                                                    <div class="modal-footer add">
-                                                        <input class="btn btn-secondary" data-bs-dismiss="modal"
-                                                            type="button" value="Close">
-                                                        <input class="btn btn-primary" id="add-btn" type="submit"
-                                                            value="Add">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-
-                                <div class="overflow-auto app-scroll">
-                                    <table class="table table-bottom-border  list-table-data align-middle mb-0">
+            <div class="container-fluid">
+                <!-- Data Table start -->
+                <div class="row">
+                    <div class="col-12">
+                        @if ($errors->has('name'))
+                            <div class="alert alert-danger">
+                                {{ $errors->first('name') }}
+                            </div>
+                        @endif
+                        <div class="card">
+                            <div class="card-body p-0">
+                                <div class="app-datatable-default overflow-auto">
+                                    <table class="display w-100 row-border-table table-responsive" id="example1">
                                         <thead>
                                             <tr class="app-sort">
                                                 <th class="">ID</th>
@@ -84,12 +83,11 @@
                                                 <th class="sort">Action</th>
                                             </tr>
                                         </thead>
-                                        <tbody class="list" id="t-data">
+                                        <tbody>
                                             @foreach ($department as $key => $item)
                                                 <tr>
                                                     <td>{{ $key + 1 }}</td>
                                                     <td>{{ ucwords($item->name) }}</td>
-
                                                     <td class="d-flex gap-2">
                                                         <button class="btn btn-sm btn-success" data-bs-toggle="modal"
                                                             data-bs-target="#editModal{{ $item->id }}">
@@ -155,6 +153,15 @@
         </div>
     </main>
 
+
+    <script>
+        $(document).ready(function() {
+            $('#example1').DataTable({
+                pageLength: 10, // ডিফল্ট 10
+                lengthMenu: [5, 10, 25, 50, 100], // dropdown options
+            });
+        });
+    </script>
     <script>
         @if ($errors->any())
             @foreach ($errors->all() as $error)

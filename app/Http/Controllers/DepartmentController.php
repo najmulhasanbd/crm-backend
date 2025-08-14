@@ -16,7 +16,7 @@ class DepartmentController extends Controller
 
     public function index()
     {
-        $department = $this->department->latest()->paginate(10);
+        $department = $this->department->latest()->get();
         return view('backend.department.index', compact('department'));
     }
 
