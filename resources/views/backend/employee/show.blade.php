@@ -101,6 +101,49 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row app-tabs-section">
+                <!-- Tab 1 -->
+                <div class="col-12">
+                    <div class="card equal-card">
+                        <div class="card-body">
+                            <ul class="nav nav-tabs app-tabs-primary" id="Basic" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button aria-controls="leadinformation" aria-selected="true" class="nav-link active"
+                                        data-bs-target="#lead-pane" data-bs-toggle="tab" id="lead" role="tab"
+                                        type="button">Lead Information
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button aria-controls="leave-pane" aria-selected="false" class="nav-link"
+                                        data-bs-target="#leave-pane" data-bs-toggle="tab" id="leave" role="tab"
+                                        type="button">Leave Information
+                                    </button>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="BasicContent">
+                                <div aria-labelledby="lead" class="tab-pane fade show active" id="leadinformation"
+                                    role="tabpanel" tabindex="0">
+                                    <p class="mb-0">Hypertext Markup Language is the standard markup language
+                                        for documents designed to be
+                                        displayed in a web browser.</p>
+                                    <p class="mb-0">It can be assisted by technologies such as Cascading Style
+                                        Sheets (CSS) and scripting
+                                        languages such as JavaScript.</p>
+                                </div>
+                                <div aria-labelledby="leave" class="tab-pane fade" id="leave-pane" role="tabpanel"
+                                    tabindex="0">
+                                    <p class="mb-0">Cascading Style Sheets (CSS) is a style sheet language used
+                                        for describing the presentation
+                                        of a document written in a markup language like HTML.</p>
+                                    <p class="mb-0">CSS is a cornerstone technology of the World Wide Web,
+                                        alongside HTML and JavaScript.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 @endsection
