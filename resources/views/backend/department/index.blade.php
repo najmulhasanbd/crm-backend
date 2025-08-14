@@ -3,7 +3,6 @@
 @section('content')
     <main>
         <div class="container-fluid">
-
             <!-- Breadcrumb start -->
             <div class="row m-1">
                 <div class="col-12 col-md-6">
@@ -157,8 +156,8 @@
     <script>
         $(document).ready(function() {
             $('#example1').DataTable({
-                pageLength: 10, // ডিফল্ট 10
-                lengthMenu: [5, 10, 25, 50, 100], // dropdown options
+                pageLength: 10,
+                lengthMenu: [5, 10, 25, 50, 100],
             });
         });
     </script>

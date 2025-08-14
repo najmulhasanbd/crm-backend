@@ -2,7 +2,7 @@
      <div class="app-logo">
          <a class="logo d-inline-block" href="{{ route('admin.dashboard') }}">
              {{-- <img alt="#" src="{{asset('backend')}}/assets/images/logo/1.png"> --}}
-             <h3>Flyori Travels</h3>
+             <h3></h3>
          </a>
 
          <span class="bg-light-primary toggle-semi-nav d-flex-center">

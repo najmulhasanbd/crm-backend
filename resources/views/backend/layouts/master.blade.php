@@ -14,7 +14,7 @@
     <meta content="la-themes" name="author">
     <link href="{{ asset('backend') }}/assets/images/logo/favicon.png" rel="icon" type="image/x-icon">
     <link href="{{ asset('backend') }}/assets/images/logo/favicon.png" rel="shortcut icon" type="image/x-icon">
-    <title>CRM | Flyori Travels</title>
+    <title>CRM | </title>
 
     <!-- Animation css -->
     <link href="{{ asset('backend') }}/assets/vendor/animation/animate.min.css" rel="stylesheet">

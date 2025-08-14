@@ -16,7 +16,7 @@ class JobRoleController extends Controller
 
     public function index()
     {
-        $jobRoles = $this->jobRole->latest()->paginate(10);
+        $jobRoles = $this->jobRole->latest()->get();
         return view('backend.jobRole.index', compact('jobRoles'));
     }
 

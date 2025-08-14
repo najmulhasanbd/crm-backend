@@ -16,7 +16,7 @@ class DesignationController extends Controller
 
     public function index()
     {
-        $designation = $this->designation->latest()->paginate(10);
+        $designation = $this->designation->latest()->get();
         return view('backend.designation.index', compact('designation'));
     }
 

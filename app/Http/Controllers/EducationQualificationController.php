@@ -16,7 +16,7 @@ class EducationQualificationController extends Controller
 
     public function index()
     {
-        $educations = $this->education->latest()->paginate(10);
+        $educations = $this->education->latest()->get();
         return view('backend.education.index', compact('educations'));
     }
 

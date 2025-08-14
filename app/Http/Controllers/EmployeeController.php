@@ -22,7 +22,7 @@ class EmployeeController extends Controller
 
     public function index()
     {
-        $employee = $this->employee->latest()->paginate(10);
+        $employee = $this->employee->latest()->get();
         $designation = $this->designation::latest()->get();
         $department = $this->department::latest()->get();
         return view('backend.employee.index', compact('employee', 'department', 'designation'));
