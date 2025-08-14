@@ -1,6 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('content')
+
     <main>
         <div class="container-fluid">
             <!-- Breadcrumb start -->
@@ -117,10 +118,10 @@
                                                 </div>
                                                 <div class="col-12 col-md-6">
                                                     <div class="form-floating mb-3">
-                                                        <input class="form-control" id="follow_up" name="follow_up"
-                                                            placeholder="follow_up" required type="date">
-                                                        <label class="form-label" for="follow_up">Follow
-                                                            Up</label>
+                                                        <input class="form-control basic-date" id="follow_up"
+                                                            name="follow_up" placeholder="YYYY-MM-DD" type="text"
+                                                            required>
+                                                        <label class="form-label" for="follow_up">Follow Up</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-md-6">
@@ -235,22 +236,21 @@
                                                     $followUp = $item->follow_up;
 
                                                     // Decode JSON if it's a string
-                                                        if (is_string($followUp) && str_starts_with($followUp, '[')) {
-                                                            $decoded = json_decode($followUp, true);
-                                                            if (is_array($decoded) && count($decoded)) {
-                                                                $followUp = end($decoded); // Get the last date
-                                                            }
-                                                        }
+if (is_string($followUp) && str_starts_with($followUp, '[')) {
+    $decoded = json_decode($followUp, true);
+    if (is_array($decoded) && count($decoded)) {
+        $followUp = end($decoded); // Get the last date
+    }
+}
 
+if (is_array($followUp)) {
+    $followUp = end($followUp);
+}
 
-                                                    if (is_array($followUp)) {
-                                                        $followUp = end($followUp);
-                                                    }
-
-                                                    // Format it (if date exists)
-                                                    $lastDate = $followUp
-                                                        ? \Carbon\Carbon::parse($followUp)->format('d M Y')
-                                                        : 'N/A';
+// Format it (if date exists)
+$lastDate = $followUp
+    ? \Carbon\Carbon::parse($followUp)->format('d M Y')
+    : 'N/A';
                                                 @endphp
 
                                                 <td>{{ $lastDate }}</td>
@@ -424,10 +424,12 @@
 
                                                                     <div class="col-12 col-md-6">
                                                                         <div class="form-floating mb-3">
-                                                                            <input class="form-control" id="follow_up"
-                                                                                name="follow_up" type="date"
-                                                                                placeholder="Follow Up" required
+                                                                            <input class="form-control basic-date"
+                                                                                id="follow_up" name="follow_up"
+                                                                                type="text" placeholder="YYYY-MM-DD"
+                                                                                required
                                                                                 value="{{ old('follow_up', $formattedDate) }}">
+
                                                                             <label class="form-label"
                                                                                 for="follow_up">Follow Up</label>
                                                                         </div>
@@ -521,6 +523,7 @@
             </div>
         </div>
     </main>
+
     <script>
         $(document).ready(function() {
             $('#example1').DataTable({

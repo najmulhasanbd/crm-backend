@@ -137,24 +137,25 @@
                                                 </div>
                                                 <div class="col-12 col-md-6">
                                                     <div class="form-floating mb-3">
-                                                        <input class="form-control" name="birth_date" required
-                                                            id="birth_date" type="date">
+                                                        <input class="form-control basic-date" name="birth_date" required
+                                                            id="birth_date" type="text" placeholder="YYYY-MM-DD">
                                                         <label for="birth_date">Date of
                                                             Birth</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-md-6">
                                                     <div class="form-floating mb-3">
-                                                        <input class="form-control" name="appointment_date" required
-                                                            id="appointment_date" type="date">
+                                                        <input class="form-control basic-date" name="appointment_date"
+                                                            required id="appointment_date" type="text"
+                                                            placeholder="YYYY-MM-DD">
                                                         <label for="appointment_date">Date of
                                                             Appoinment</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-md-6">
                                                     <div class="form-floating mb-3">
-                                                        <input class="form-control" id="join_date" required
-                                                            name="join_date" type="date">
+                                                        <input class="form-control basic-date" id="join_date" required
+                                                            name="join_date" type="text" placeholder="YYYY-MM-DD">
                                                         <label for="join_date">Joining Date</label>
                                                     </div>
                                                 </div>
@@ -415,10 +416,11 @@
                                                                     </div>
                                                                     <div class="col-12 col-md-6">
                                                                         <div class="form-floating mb-3">
-                                                                            <input class="form-control" name="birth_date"
+                                                                            <input class="form-control basic-date"
+                                                                                name="birth_date"
                                                                                 id="birth_date{{ $item->id }}"
                                                                                 value="{{ $item->birth_date }}"
-                                                                                type="date">
+                                                                                type="text" placeholder="YYYY-MM-DD">
                                                                             <label
                                                                                 for="birth_date{{ $item->id }}">Date
                                                                                 of
@@ -427,11 +429,11 @@
                                                                     </div>
                                                                     <div class="col-12 col-md-6">
                                                                         <div class="form-floating mb-3">
-                                                                            <input class="form-control"
+                                                                            <input class="form-control basic-date"
                                                                                 name="appointment_date"
                                                                                 id="appointment_date{{ $item->id }}"
                                                                                 value="{{ $item->appointment_date }}"
-                                                                                type="date">
+                                                                                type="text" placeholder="YYYY-MM-DD">
                                                                             <label
                                                                                 for="appointment_date{{ $item->id }}">Date
                                                                                 of Appointment</label>
@@ -439,11 +441,11 @@
                                                                     </div>
                                                                     <div class="col-12 col-md-6">
                                                                         <div class="form-floating mb-3">
-                                                                            <input class="form-control"
+                                                                            <input class="form-control basic-date"
                                                                                 id="join_date{{ $item->id }}"
-                                                                                name="join_date"
+                                                                                name="join_date" placeholder="YYYY-MM-DD"
                                                                                 value="{{ $item->join_date }}"
-                                                                                type="date">
+                                                                                type="text">
                                                                             <label
                                                                                 for="join_date{{ $item->id }}">Joining
                                                                                 Date</label>

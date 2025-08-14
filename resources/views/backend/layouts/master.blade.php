@@ -46,16 +46,17 @@
     <link href="{{ asset('backend') }}/assets/vendor/datatable/jquery.dataTables.min.css" rel="stylesheet"
         type="text/css">
 
+    <link href="{{ asset('backend') }}/assets/vendor/datepikar/flatpickr.min.css" rel="stylesheet" type="text/css">
+
     <!-- App css-->
     <link href="{{ asset('backend') }}/assets/css/style.css" rel="stylesheet" type="text/css">
-
-
 
     <!-- Responsive css-->
     <link href="{{ asset('backend/assets/css/responsive.css') }}" rel="stylesheet" type="text/css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.22.3/sweetalert2.css" />
+
 </head>
 
 <body>
@@ -118,12 +119,18 @@
     <!-- Ecommerce js-->
     <script src="{{ asset('backend') }}/assets/js/ecommerce_dashboard.js"></script>
 
+
+    <!-- flatpickr js-->
+    <script src="{{ asset('backend') }}/assets/vendor/datepikar/flatpickr.js"></script>
+
+    <!--js-->
+    <script src="{{ asset('backend') }}/assets/js/date_picker.js"></script>
+
+
     <!-- App js-->
     <script src="{{ asset('backend') }}/assets/js/script.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
-
 
     <script>
         @if (Session::has('message'))
