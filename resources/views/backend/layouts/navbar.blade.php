@@ -98,16 +98,6 @@
                      Department
                  </a>
              </li>
-             <li class="no-sub">
-                 <a href="widget.html">
-                     <svg stroke="currentColor" stroke-width="1.5">
-                         <use
-                             xlink:href="https://phpstack-1384472-5121645.cloudwaysapps.com/template/html/ki-admin/assets/svg/_sprite.svg#squares">
-                         </use>
-                     </svg>
-                     Blank Page
-                 </a>
-             </li>
              <li>
                  <a aria-expanded="false" data-bs-toggle="collapse" href="#administation">
                      <svg stroke="currentColor" stroke-width="1.5">
@@ -119,7 +109,7 @@
                  </a>
                  <ul class="collapse" id="administation">
                      <li><a href="{{ route('user.index') }}">Admins</a></li>
-                     {{-- <li><a href="{{ route('lead-assign.index') }}">Lead Assign</a></li> --}}
+                     <li><a href="{{ route('user.roles') }}">Admin Roles</a></li>
                  </ul>
              </li>
          </ul>

@@ -65,6 +65,19 @@
                                                 </div>
                                                 <div class="col-12 col-md-6">
                                                     <div class="mb-3">
+                                                        <label class="form-label">Select Role</label>
+                                                        <select class="form-select" name="role_id" required
+                                                            style="height: 60px">
+                                                            @foreach ($roles as $item)
+                                                                <option value="{{ $item->id }}">
+                                                                    {{ ucwords($item->name) }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-md-6">
+                                                    <div class="mb-3">
                                                         <label class="form-label">Department</label>
                                                         <select class="form-select" name="department" required
                                                             style="height: 60px">
@@ -217,6 +230,7 @@
                                             <th class="">ID</th>
                                             <th class="">Card</th>
                                             <th class="sort">Name</th>
+                                            <th class="sort">Role</th>
                                             {{-- <th class="sort">Email</th>
                                             <th class="sort">Mobile</th>
                                             <th class="sort">Designation</th>
@@ -232,6 +246,7 @@
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>{{ ucwords($item->id_card) }}</td>
                                                 <td>{{ ucwords($item->name) }}</td>
+                                                <td>{{ ucwords($item->role->name ?? '') }}</td>
                                                 {{-- <td>{{ $item->email }}</td>
                                                 <td>{{ $item->mobile }}</td>
                                                 <td>{{ ucwords($item->designation) }}</td>
@@ -320,7 +335,20 @@
                                                                                 Name</label>
                                                                         </div>
                                                                     </div>
-
+                                                                    <div class="col-12 col-md-6">
+                                                                        <div class="mb-3">
+                                                                            <label class="form-label">Select Role</label>
+                                                                            <select class="form-select" name="role_id"
+                                                                                required style="height: 60px">
+                                                                                @foreach ($roles as $role)
+                                                                                    <option value="{{ $role->id }}"
+                                                                                        {{ $item->role_id == $role->id ? 'selected' : '' }}>
+                                                                                        {{ ucwords($role->name) }}
+                                                                                    </option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
                                                                     <div class="col-12 col-md-6">
                                                                         <div class="mb-3">
                                                                             <label class="form-label">Department</label>
@@ -452,7 +480,7 @@
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="col-12 col-md-6">
+                                                                    <div class="col-12">
                                                                         <div class="form-floating mb-3">
                                                                             <textarea name="address" id="address{{ $item->id }}" class="form-control" rows="5">{{ $item->address }}</textarea>
                                                                             <label

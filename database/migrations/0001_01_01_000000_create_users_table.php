@@ -22,7 +22,8 @@ return new class extends Migration
             $table->rememberToken();
 
             // Employee-specific info (merged from employees table)
-            $table->string('id_card')->unique()->nullable(); // nullable so admin account work kore
+            $table->unsignedBigInteger('role_id')->nullable();
+            $table->string('id_card')->unique()->nullable();
             $table->string('photo')->nullable();
             $table->string('department')->nullable();
             $table->string('designation')->nullable();
@@ -37,6 +38,7 @@ return new class extends Migration
             $table->tinyInteger('status')->default(0)->comment('1 => active, 0 => inactive');
 
             $table->timestamps();
+            // $table->foreign('role_id')->references('id')->on('roles')->onDelete('set null');
         });
 
 
