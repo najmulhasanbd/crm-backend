@@ -54,12 +54,25 @@
                                 </select>
                             </div>
                         </div>
-
                         <div class="col-12 col-md-6 d-none company_div">
                             <div class="form-floating mb-3">
                                 <input class="form-control" id="company_name" name="company_name" placeholder="Company Name"
                                     type="text" value="{{ old('company_name') }}">
                                 <label class="form-label" for="company_name">Company Name</label>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Lead Concern</label>
+                                <select class="form-select" name="lead_concern" required style="height: 60px">
+                                    <option value="">Select Lead Concern</option>
+                                    <option value="World Flight Travels"
+                                        {{ old('lead_concern') == 'World Flight Travels' ? 'selected' : '' }}>
+                                        World Flight Travels</option>
+                                    <option value="Flyori Travel"
+                                        {{ old('lead_concern') == 'Flyori Travel' ? 'selected' : '' }}>Flyori Travel
+                                    </option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
@@ -106,7 +119,7 @@
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="mb-3">
-                                <label class="form-label">Country</label>
+                                <label class="form-label">Which Country</label>
                                 <select class="form-select" name="country" required style="height: 60px">
                                     <option value="">Select Country</option>
                                     <option value="Afghanistan" {{ old('country') == 'Afghanistan' ? 'selected' : '' }}>
@@ -229,6 +242,18 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="col-12 col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Address/Location</label>
+                                <select class="form-select" name="address" id="addressSelect" required
+                                    style="height: 60px">
+                                    <option value="">Select Address/Location</option>
+                                    <option value="Dhaka" @selected(old('address', $lead->address ?? '') == 'Dhaka')>Dhaka</option>
+                                    <option value="Gazipur" @selected(old('address', $lead->address ?? '') == 'Gazipur')>Gazipur</option>
+                                    <option value="other" @selected(!in_array(old('address', $lead->address ?? ''), ['Dhaka', 'Gazipur', '']))>Others</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="col-12">
                             <div class="form-floating mb-3">
                                 <textarea class="form-control" name="note" id="note" cols="30" rows="10" placeholder="note">{{ old('note') }}</textarea>
@@ -236,7 +261,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer add">
+                    <div class="modal-footer d-flex gap-2">
                         <input class="btn btn-secondary" data-bs-dismiss="modal" type="button" value="Close">
                         <input class="btn btn-primary" id="add-btn" type="submit" value="Add">
                     </div>
@@ -302,5 +327,100 @@
             });
         });
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const addressSelect = document.getElementById('addressSelect');
+            const otherInput = document.getElementById('otherAddressInput');
+            const suggestions = document.getElementById('countrySuggestions');
 
+            // List of all countries (example)
+            const countries = [
+                "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Anguilla", "Antarctica",
+                "Antigua and Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan",
+                "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin",
+                "Bermuda", "Bhutan", "Bolivia", "Bonaire, Sint Eustatius and Saba", "Bosnia and Herzegovina",
+                "Botswana", "Bouvet Island", "Brazil", "British Indian Ocean Territory", "Brunei Darussalam",
+                "Bulgaria", "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia", "Cameroon", "Canada",
+                "Cayman Islands", "Central African Republic", "Chad", "Chile", "China", "Christmas Island",
+                "Cocos (Keeling) Islands", "Colombia", "Comoros", "Congo (the Democratic Republic of the)",
+                "Congo (the)", "Cook Islands", "Costa Rica", "Croatia", "Cuba", "Curaçao", "Cyprus", "Czechia",
+                "Côte d'Ivoire", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt",
+                "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia",
+                "Falkland Islands", "Faroe Islands", "Fiji", "Finland", "France", "French Guiana",
+                "French Polynesia", "French Southern Territories", "Gabon", "Gambia", "Georgia", "Germany",
+                "Ghana", "Gibraltar", "Greece", "Greenland", "Grenada", "Guadeloupe", "Guam", "Guatemala",
+                "Guernsey", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Heard Island and McDonald Islands",
+                "Holy See", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq",
+                "Ireland", "Isle of Man", "Israel", "Italy", "Jamaica", "Japan", "Jersey", "Jordan",
+                "Kazakhstan", "Kenya", "Kiribati", "Korea (North)", "Korea (South)", "Kuwait", "Kyrgyzstan",
+                "Lao People's Democratic Republic", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya",
+                "Liechtenstein", "Lithuania", "Luxembourg", "Macao", "Madagascar", "Malawi", "Malaysia",
+                "Maldives", "Mali", "Malta", "Marshall Islands", "Martinique", "Mauritania", "Mauritius",
+                "Mayotte", "Mexico", "Micronesia (Federated States of)", "Moldova", "Monaco", "Mongolia",
+                "Montenegro", "Montserrat", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal",
+                "Netherlands", "New Caledonia", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Niue",
+                "Norfolk Island", "North Macedonia", "Northern Mariana Islands", "Norway", "Oman", "Pakistan",
+                "Palau", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Pitcairn Islands",
+                "Poland", "Portugal", "Puerto Rico", "Qatar", "Romania", "Russian Federation", "Rwanda",
+                "Réunion", "Saint Barthélemy", "Saint Helena, Ascension and Tristan da Cunha",
+                "Saint Kitts and Nevis", "Saint Lucia", "Saint Martin", "Saint Pierre and Miquelon",
+                "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe",
+                "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Sint Maarten",
+                "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa",
+                "South Georgia and the South Sandwich Islands", "South Sudan", "Spain", "Sri Lanka", "Sudan",
+                "Suriname", "Svalbard and Jan Mayen", "Sweden", "Switzerland", "Syrian Arab Republic", "Taiwan",
+                "Tajikistan", "Tanzania", "Thailand", "Timor-Leste", "Togo", "Tokelau", "Tonga",
+                "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine",
+                "United Arab Emirates", "United Kingdom", "United States of America", "Uruguay", "Uzbekistan",
+                "Vanuatu", "Venezuela", "Viet Nam", "Western Sahara", "Yemen", "Zambia", "Zimbabwe"
+            ];
+
+            // Show/hide input field when 'Other' selected
+            addressSelect.addEventListener('change', function() {
+                if (this.value === 'other') {
+                    otherInput.style.display = 'block';
+                    otherInput.setAttribute('required', 'required');
+                    otherInput.focus();
+                } else {
+                    otherInput.style.display = 'none';
+                    otherInput.removeAttribute('required');
+                    suggestions.style.display = 'none';
+                }
+            });
+
+            // Autocomplete logic
+            otherInput.addEventListener('input', function() {
+                const val = this.value.trim();
+                suggestions.innerHTML = '';
+                if (val.length >= 4) { // only after 4 chars
+                    const matches = countries.filter(c => c.toLowerCase().includes(val.toLowerCase()));
+                    if (matches.length > 0) {
+                        matches.forEach(c => {
+                            const li = document.createElement('li');
+                            li.textContent = c;
+                            li.classList.add('list-group-item');
+                            li.style.cursor = 'pointer';
+                            li.addEventListener('click', function() {
+                                otherInput.value = c;
+                                suggestions.style.display = 'none';
+                            });
+                            suggestions.appendChild(li);
+                        });
+                        suggestions.style.display = 'block';
+                    } else {
+                        suggestions.style.display = 'none';
+                    }
+                } else {
+                    suggestions.style.display = 'none';
+                }
+            });
+
+            // Hide suggestions if clicked outside
+            document.addEventListener('click', function(e) {
+                if (!otherInput.contains(e.target) && !suggestions.contains(e.target)) {
+                    suggestions.style.display = 'none';
+                }
+            });
+        });
+    </script>
 @endsection

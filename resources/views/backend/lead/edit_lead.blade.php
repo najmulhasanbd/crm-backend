@@ -68,7 +68,22 @@
                                 <label class="form-label" for="company_name">Company Name</label>
                             </div>
                         </div>
-
+                        <div class="col-12 col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Lead Concern</label>
+                                <select class="form-select" name="lead_concern" required style="height: 60px">
+                                    <option value="">Select Lead Concern</option>
+                                    <option value="World Flight Travels"
+                                        {{ old('lead_concern', $lead->lead_concern ?? '') == 'World Flight Travels' ? 'selected' : '' }}>
+                                        World Flight Travels
+                                    </option>
+                                    <option value="Flyori Travel"
+                                        {{ old('lead_concern', $lead->lead_concern ?? '') == 'Flyori Travel' ? 'selected' : '' }}>
+                                        Flyori Travel
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
                         <!-- Full Name -->
                         <div class="col-12 col-md-6">
                             <div class="form-floating mb-3">
@@ -130,7 +145,7 @@
                         <!-- Country -->
                         <div class="col-12 col-md-6">
                             <div class="mb-3">
-                                <label class="form-label">Country</label>
+                                <label class="form-label">Which Country</label>
                                 <select class="form-select" name="country" style="height: 60px">
                                     <option value="">Select Country</option>
                                     <option value="Afghanistan"
@@ -274,7 +289,16 @@
                                 </select>
                             </div>
                         </div>
-
+                        <div class="col-12 col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Address/Location</label>
+                                <select class="form-select" name="address" required style="height: 60px">
+                                    <option value="">Select Address/Location</option>
+                                    <option value="Dhaka" @selected(old('address', $lead->address ?? '') == 'Dhaka')>Dhaka</option>
+                                    <option value="Gazipur" @selected(old('address', $lead->address ?? '') == 'Gazipur')>Gazipur</option>
+                                </select>
+                            </div>
+                        </div>
                         <!-- Note -->
                         <div class="col-12">
                             <div class="form-floating mb-3">
@@ -284,7 +308,7 @@
                         </div>
 
                         <!-- Buttons -->
-                        <div class="modal-footer">
+                        <div class="modal-footer d-flex gap-2">
                             <input class="btn btn-secondary" data-bs-dismiss="modal" type="button" value="Close">
                             <input class="btn btn-primary" type="submit" value="Update">
                         </div>

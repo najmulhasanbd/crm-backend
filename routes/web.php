@@ -48,6 +48,9 @@ Route::prefix('admin')
                 Route::get('droped', 'droped')->name('droped');
                 Route::get('on-process', 'onprocess')->name('onprocess');
                 Route::get('converted', 'converted')->name('converted');
+                Route::get('reject', 'reject')->name('reject');
+                Route::get('today-follow-up-lead', 'todayFollow')->name('today.follow.lead');
+                Route::get('missing-lead', 'missingLead')->name('missing.lead');
             });
 
         //education qualification

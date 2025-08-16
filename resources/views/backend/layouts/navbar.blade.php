@@ -46,10 +46,6 @@
                  <ul class="collapse" id="dashboard">
                      <li><a href="{{ route('lead.index') }}">Leads</a></li>
                      <li><a href="{{ route('lead-assign.index') }}">Lead Assign</a></li>
-                     <li><a href="{{ route('lead.booked') }}">Booked Lead</a></li>
-                     <li><a href="{{ route('lead.droped') }}">Droped Lead</a></li>
-                     <li><a href="{{ route('lead.onprocess') }}">On Process Lead</a></li>
-                     <li><a href="{{ route('lead.converted') }}">Converted</a></li>
                  </ul>
              </li>
              <li class="no-sub">

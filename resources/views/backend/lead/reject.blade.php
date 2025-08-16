@@ -7,7 +7,7 @@
             <!-- Breadcrumb start -->
             <div class="row m-1">
                 <div class="col-12 col-md-6">
-                    <h4 class="main-title">Booked Lead List </h4>
+                    <h4 class="main-title">Reject Lead List </h4>
                     <ul class="app-line-breadcrumbs mb-3">
                         <li class="">
                             <a class="f-s-14 f-w-500" href="{{ route('lead.index') }}">
@@ -63,7 +63,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class="list" id="t-data">
-                                        @foreach ($booked as $key => $item)
+                                        @foreach ($reject as $key => $item)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>{{ $item->lead_id }}</td>
@@ -72,8 +72,9 @@
                                                 <td>{{ $item->whatsapp }}</td>
                                                 <td>
                                                     @if ($item->mobile)
-                                                        {{ implode(', ', (array) json_decode($item->mobile, true)) }}
+                                                        {{ implode(', ', json_decode($item->mobile)) }}
                                                     @endif
+                                                </td>
                                                 <td>{{ ucwords($item->country) }}</td>
 
                                                 @php

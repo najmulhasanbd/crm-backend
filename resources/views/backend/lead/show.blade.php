@@ -23,6 +23,14 @@
                                         <th>Lead ID</th>
                                         <td>{{ $lead->lead_id }}</td>
                                     </tr>
+                                    <tr>
+                                        <th>Lead Concern</th>
+                                        <td>{{ ucwords($lead->lead_concern) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Client Type</th>
+                                        <td>{{ ucwords($lead->client_type) }}</td>
+                                    </tr>
                                     @if ($lead->company_name)
                                         <tr>
                                             <th>Company Name</th>
@@ -55,10 +63,10 @@
                                     </tr>
                                     <tr>
                                         <th>Age</th>
-                                        <td>{{ $lead->age }}</td>
+                                        <td>{{ $lead->age }} Years</td>
                                     </tr>
                                     <tr>
-                                        <th>Country</th>
+                                        <th>Which Country</th>
                                         <td>{{ $lead->country }}</td>
                                     </tr>
                                     <tr>
@@ -71,7 +79,7 @@
                                     </tr>
                                     <tr>
                                         <th>Experience</th>
-                                        <td>{{ $lead->experience }}</td>
+                                        <td>{{ $lead->experience }} Years</td>
                                     </tr>
                                     <tr>
                                         <th>Priority</th>
@@ -172,7 +180,7 @@
                                                 @endforeach
                                             @else
                                                 <span class="text-muted">
-                                                    {{  'No employee assigned' }}
+                                                    {{ 'No employee assigned' }}
                                                 </span>
                                             @endif
                                         </td>
@@ -181,7 +189,10 @@
                                         <th>Collected Lead Employee</th>
                                         <td>{{ ucwords($lead->user->name ?? 'N/A') }}</td>
                                     </tr>
-
+                                    <tr>
+                                        <th>Address</th>
+                                        <td>{{ ucwords($lead->address) }}</td>
+                                    </tr>
                                     <tr>
                                         <th>Created At</th>
                                         <td>{{ \Carbon\Carbon::parse($lead->created_at)->format('d-M-Y H:i A') }}</td>

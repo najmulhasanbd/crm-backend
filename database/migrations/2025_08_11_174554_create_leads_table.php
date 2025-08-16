@@ -13,6 +13,7 @@ return new class extends Migration {
         Schema::create('leads', function (Blueprint $table) {
             $table->id();
             $table->string('lead_id')->unique()->nullable();
+            $table->enum('lead_concern', ['World Flight Travels', 'Flyori Travel']);
             $table->enum('lead_type', ['individual', 'agent']);
             $table->string('name')->nullable();
             $table->string('company_name')->nullable();
@@ -20,6 +21,7 @@ return new class extends Migration {
             $table->json('mobile')->nullable();
             $table->string('whatsapp')->nullable();
             $table->string('country');
+            $table->string('address');
             $table->string('job_role')->nullable();
             $table->string('age')->nullable();
             $table->string('education')->nullable();

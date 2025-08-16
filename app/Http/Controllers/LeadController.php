@@ -6,6 +6,7 @@ use App\Models\Lead;
 use App\Models\JobRole;
 use App\Models\LeadAssign;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Models\EducationQualification;
 
@@ -40,6 +41,8 @@ class LeadController extends Controller
                     'whatsapp' => 'nullable|string',
                     'age' => 'required|numeric',
                     'country' => 'required|string',
+                    'lead_concern' => 'required|string',
+                    'address' => 'required|string',
                     'job_role' => 'required|string',
                     'experience' => 'required|string',
                     'follow_up' => 'required|date',
@@ -71,14 +74,16 @@ class LeadController extends Controller
             // Create lead
             Lead::create([
                 'lead_id' => $leadId,
-                'client_type' => $request->input('client_type', 'individual'), // default 'individual'
+                'client_type' => $request->input('client_type', 'individual'),
                 'company_name' => $request->company_name,
+                'lead_concern' => $validated['lead_concern'],
                 'name' => $validated['name'],
                 'passport' => $validated['passport'],
                 'mobile' => json_encode($validated['mobile']),
                 'whatsapp' => $validated['whatsapp'] ?? null,
                 'age' => $validated['age'],
                 'country' => $validated['country'],
+                'address' => $validated['address'],
                 'job_role' => $validated['job_role'],
                 'experience' => $validated['experience'],
                 'follow_up' => json_encode([$validated['follow_up']]),
@@ -90,10 +95,12 @@ class LeadController extends Controller
                 'assign_user' => auth()->id(),
             ]);
 
-            return redirect()->route('lead.index')->with([
-                'message' => 'Lead created successfully! Lead ID: ' . $leadId,
-                'alert-type' => 'success'
-            ]);
+            return redirect()
+                ->route('lead.index')
+                ->with([
+                    'message' => 'Lead created successfully! Lead ID: ' . $leadId,
+                    'alert-type' => 'success',
+                ]);
         } catch (\Illuminate\Validation\ValidationException $e) {
             return redirect()->back()->withErrors($e->validator)->withInput();
         } catch (\Illuminate\Database\QueryException $e) {
@@ -112,33 +119,38 @@ class LeadController extends Controller
 
     public function update(Request $request, Lead $lead)
     {
-        $validated = $request->validate([
-            'client_type' => 'required|string|in:individual,agent',
-            'name' => 'required|string|max:255',
-            'passport' => ['required', 'string', 'unique:leads,passport,' . $lead->id, 'regex:/^[A-Za-z0-9]+$/'],
-            'mobile' => ['required', 'array'],
-            'mobile.*' => ['required', 'distinct', 'regex:/^[0-9]+$/'],
-            'whatsapp' => 'nullable|string',
-            'age' => 'required|numeric',
-            'country' => 'required|string',
-            'job_role' => 'required|string',
-            'experience' => 'required|string',
-            'follow_up' => 'required|date',
-            'education' => 'required|string',
-            'priority' => 'required|string|max:50',
-            'status' => 'required|string|max:50',
-            'source' => 'nullable|in:agent,facebook,youtube,google,whatsapp,instagram,tiktok,imo,referral,walk-in,digital_marketing',
-            'company_name' => 'nullable|string',
-            'note' => 'nullable|string',
-        ], [
-            'client_type.required' => 'Please select a lead type.',
-            'client_type.in' => 'Invalid lead type selected.',
-            'passport.unique' => 'This passport number already exists!',
-            'passport.regex' => 'Passport must contain only letters and numbers, no special characters.',
-            'mobile.*.required' => 'Mobile number is required.',
-            'mobile.*.distinct' => 'Duplicate mobile numbers are not allowed.',
-            'mobile.*.regex' => 'Mobile must contain only numbers.',
-        ]);
+        $validated = $request->validate(
+            [
+                'client_type' => 'required|string|in:individual,agent',
+                'name' => 'required|string|max:255',
+                'passport' => ['required', 'string', 'unique:leads,passport,' . $lead->id, 'regex:/^[A-Za-z0-9]+$/'],
+                'mobile' => ['required', 'array'],
+                'mobile.*' => ['required', 'distinct', 'regex:/^[0-9]+$/'],
+                'whatsapp' => 'nullable|string',
+                'age' => 'required|numeric',
+                'country' => 'required|string',
+                'lead_concern' => 'required|string',
+                'address' => 'required|string',
+                'job_role' => 'required|string',
+                'experience' => 'required|string',
+                'follow_up' => 'required|date',
+                'education' => 'required|string',
+                'priority' => 'required|string|max:50',
+                'status' => 'required|string|max:50',
+                'source' => 'nullable|in:agent,facebook,youtube,google,whatsapp,instagram,tiktok,imo,referral,walk-in,digital_marketing',
+                'company_name' => 'nullable|string',
+                'note' => 'nullable|string',
+            ],
+            [
+                'client_type.required' => 'Please select a lead type.',
+                'client_type.in' => 'Invalid lead type selected.',
+                'passport.unique' => 'This passport number already exists!',
+                'passport.regex' => 'Passport must contain only letters and numbers, no special characters.',
+                'mobile.*.required' => 'Mobile number is required.',
+                'mobile.*.distinct' => 'Duplicate mobile numbers are not allowed.',
+                'mobile.*.regex' => 'Mobile must contain only numbers.',
+            ],
+        );
 
         // Follow-up history
         $history = is_array(json_decode($lead->follow_up, true)) ? json_decode($lead->follow_up, true) : [];
@@ -156,6 +168,8 @@ class LeadController extends Controller
             'whatsapp' => $validated['whatsapp'] ?? null,
             'age' => $validated['age'],
             'country' => $validated['country'],
+            'lead_concern' => $validated['lead_concern'],
+            'address' => $validated['address'],
             'job_role' => $validated['job_role'],
             'experience' => $validated['experience'],
             'follow_up' => json_encode($history),
@@ -167,12 +181,13 @@ class LeadController extends Controller
             'assign_user' => auth()->id(),
         ]);
 
-        return redirect()->route('lead.index')->with([
-            'message' => 'Lead updated successfully!',
-            'alert-type' => 'success'
-        ]);
+        return redirect()
+            ->route('lead.index')
+            ->with([
+                'message' => 'Lead updated successfully!',
+                'alert-type' => 'success',
+            ]);
     }
-
 
     public function show(Lead $lead)
     {
@@ -202,5 +217,22 @@ class LeadController extends Controller
     {
         $converted = Lead::where('status', 'converted')->latest()->get();
         return view('backend.lead.converted', compact('converted'));
+    }
+    public function reject()
+    {
+        $reject = Lead::where('status', 'reject')->latest()->get();
+        return view('backend.lead.reject', compact('reject'));
+    }
+    public function todayFollow()
+    {
+        $todayFollow = Lead::whereDate('created_at', Carbon::today())->get();
+        return view('backend.lead.today_follow', compact('todayFollow'));
+    }
+    public function missingLead()
+    {
+        $yesterday = Carbon::yesterday()->toDateString(); // গতকালের তারিখ
+        $missingLead = Lead::whereDate('follow_up', $yesterday)->get();
+
+        return view('backend.lead.missing_lead', compact('missingLead'));
     }
 }

@@ -70,11 +70,11 @@
                                                 <td>{{ ucwords($item->name) }}</td>
                                                 <td>{{ $item->passport }}</td>
                                                 <td>{{ $item->whatsapp }}</td>
-                                               <td>
-    @if($item->mobile)
-        {{ implode(', ', json_decode($item->mobile)) }}
-    @endif
-</td>
+                                                <td>
+                                                    @if ($item->mobile)
+                                                        {{ implode(', ', (array) json_decode($item->mobile, true)) }}
+                                                    @endif
+                                                </td>
                                                 <td>{{ ucwords($item->country) }}</td>
 
                                                 @php
