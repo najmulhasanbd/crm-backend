@@ -10,9 +10,13 @@ class DashboardContrller extends Controller
 {
     public function index()
     {
-        $leads = Lead::count();
-        $departments = Department::count();
         $employees = Employee::count();
-        return view('backend.index', compact('employees', 'leads', 'departments'));
+        $leads = Lead::count();
+        $booked = Lead::where('status','booked')->count();
+        $onprocess = Lead::where('status','On Process')->count();
+        $converted = Lead::where('status','converted')->count();
+        $droped = Lead::where('status','Droped')->count();
+        $departments = Department::count();
+        return view('backend.index', compact('employees', 'leads', 'departments','booked','onprocess','converted','droped'));
     }
 }

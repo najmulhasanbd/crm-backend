@@ -64,7 +64,7 @@
     <link href="{{ asset('backend') }}/assets/images/logo/favicon.png" rel="icon" type="image/x-icon">
     <link href="{{ asset('backend') }}/assets/images/logo/favicon.png" rel="shortcut icon" type="image/x-icon">
 
-    <title>Sign In | Flyori Travel </title>
+    <title>Sign In |  </title>
 
     <!--font-awesome-css-->
     <link href="{{ asset('backend') }}/assets/vendor/fontawesome/css/all.css" rel="stylesheet">
@@ -117,7 +117,7 @@
                                     <div class="col-12">
                                         <div class="mb-5 text-center text-lg-start">
                                             <h2 class="text-white f-w-600">Welcome To <span class="text-dark">
-                                                    Flyori Travel!</span> </h2>
+                                                    !</span> </h2>
                                         </div>
                                     </div>
 

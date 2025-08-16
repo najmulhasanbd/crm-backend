@@ -7,7 +7,7 @@
             <div class="row m-1 mb-2">
                 <div class="col-12 d-flex justify-content-between align-items-center">
                     <h4 class="main-title">Lead Details: {{ $lead->name }}</h4>
-                    <a href="{{ route('lead.index') }}" class="btn btn-sm btn-success">Lead List</a>
+                    <a href="{{ route('lead.index') }}" class="btn  btn-primary">Lead List</a>
                 </div>
             </div>
 
@@ -23,13 +23,31 @@
                                         <th>Lead ID</th>
                                         <td>{{ $lead->lead_id }}</td>
                                     </tr>
+                                    @if ($lead->company_name)
+                                        <tr>
+                                            <th>Company Name</th>
+                                            <td>{{ ucwords($lead->company_name) }}</td>
+                                        </tr>
+                                    @endif
                                     <tr>
                                         <th>Passport</th>
                                         <td>{{ $lead->passport }}</td>
                                     </tr>
                                     <tr>
                                         <th>Mobile</th>
-                                        <td>{{ $lead->mobile }}</td>
+                                        <td>
+                                            @php
+                                                $mobiles = json_decode($lead->mobile, true);
+                                            @endphp
+
+                                            @if (!empty($mobiles))
+                                                @foreach ($mobiles as $mobile)
+                                                    <div>{{ $mobile }}</div>
+                                                @endforeach
+                                            @else
+                                                N/A
+                                            @endif
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>Whatsapp</th>
@@ -68,6 +86,28 @@
                                                 };
                                             @endphp
                                             <span class="{{ $priorityClass }}">{{ ucwords($lead->priority) }}</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Lead Source</th>
+                                        <td>
+                                            @php
+                                                $sourceClass = match ($lead->source) {
+                                                    'agent' => 'badge bg-primary',
+                                                    'facebook' => 'badge bg-info',
+                                                    'youtube' => 'badge bg-danger',
+                                                    'google' => 'badge bg-warning text-dark',
+                                                    'whatsapp' => 'badge bg-success',
+                                                    'instagram' => 'badge bg-secondary',
+                                                    'tiktok' => 'badge bg-dark',
+                                                    'imo' => 'badge bg-light text-dark',
+                                                    'referral' => 'badge bg-info',
+                                                    'walk-in' => 'badge bg-warning text-dark',
+                                                    'digital_marketing' => 'badge bg-primary',
+                                                    default => 'badge bg-light text-dark',
+                                                };
+                                            @endphp
+                                            <span class="{{ $sourceClass }}">{{ ucfirst($lead->source) }}</span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -123,23 +163,20 @@
                                     <tr>
                                         <th>Assign Employee</th>
                                         <td>
-                                            @if ($lead->assignedEmployees->count())
-                                                @if ($lead->assignedEmployees->count())
-                                                    @foreach ($lead->assignedEmployees as $employee)
-                                                        <a href="{{ route('user.show', $employee->id) }}" target="_blank"
-                                                            class="btn btn-sm btn-outline-primary me-1 mb-1 text-decoration-none">
-                                                            {{ ucwords($employee->name ?? '') }}
-                                                        </a>
-                                                    @endforeach
-                                                @else
-                                                    <span class="text-muted">No employee assigned</span>
-                                                @endif
+                                            @if ($lead->assignedEmployees->isNotEmpty())
+                                                @foreach ($lead->assignedEmployees as $employee)
+                                                    <a href="{{ route('user.show', $employee->id) }}" target="_blank"
+                                                        class="btn btn-sm btn-outline-primary me-1 mb-1 text-decoration-none">
+                                                        {{ ucwords($employee->name ?? '') }}
+                                                    </a>
+                                                @endforeach
                                             @else
-                                                <span class="text-muted">{{ ucwords($lead->user->name ?? 'N/A') }}</span>
+                                                <span class="text-muted">
+                                                    {{  'No employee assigned' }}
+                                                </span>
                                             @endif
                                         </td>
                                     </tr>
-
                                     <tr>
                                         <th>Collected Lead Employee</th>
                                         <td>{{ ucwords($lead->user->name ?? 'N/A') }}</td>

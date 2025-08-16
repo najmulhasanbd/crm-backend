@@ -7,7 +7,7 @@
             <!-- Breadcrumb start -->
             <div class="row m-1">
                 <div class="col-12 col-md-6">
-                    <h4 class="main-title">All Lead List </h4>
+                    <h4 class="main-title">Droped Lead List </h4>
                     <ul class="app-line-breadcrumbs mb-3">
                         <li class="">
                             <a class="f-s-14 f-w-500" href="{{ route('lead.index') }}">
@@ -23,7 +23,7 @@
                 </div>
                 <div class="col-12 col-md-6 d-flex justify-content-end">
                     <div class="list-table-header d-flex justify-content-sm-between mb-3">
-                        <a class="btn  btn-primary" href="{{ route('lead.create') }}">Add Lead</a>
+                        <a class="btn  btn-primary" href="{{ route('lead.index') }}">Lead List</a>
                     </div>
                 </div>
             </div>
@@ -63,7 +63,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class="list" id="t-data">
-                                        @foreach ($leads as $key => $item)
+                                        @foreach ($droped as $key => $item)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>{{ $item->lead_id }}</td>

@@ -66,4 +66,6 @@ class JobRoleController extends Controller
             'alert-type' => 'success'
         ]);
     }
+
+
 }

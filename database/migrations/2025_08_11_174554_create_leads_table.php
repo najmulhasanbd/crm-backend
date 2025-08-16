@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -14,9 +13,11 @@ return new class extends Migration
         Schema::create('leads', function (Blueprint $table) {
             $table->id();
             $table->string('lead_id')->unique()->nullable();
+            $table->enum('lead_type', ['individual', 'agent']);
             $table->string('name')->nullable();
+            $table->string('company_name')->nullable();
             $table->string('passport')->unique()->nullable();
-            $table->string('mobile')->unique()->nullable();
+            $table->json('mobile')->nullable();
             $table->string('whatsapp')->nullable();
             $table->string('country');
             $table->string('job_role')->nullable();
@@ -28,6 +29,7 @@ return new class extends Migration
             $table->longText('note')->nullable();
             $table->enum('status', ['Booked', 'Droped', 'On Process', 'Converted', 'Rejected', 'Need to Follow', 'Passport New', 'Payment New']);
             $table->enum('priority', ['VIP', 'Low Priority', 'Medium Priority', 'High Priority']);
+            $table->enum('source', ['agent', 'facebook', 'youtube', 'google', 'whatsapp', 'instagram', 'tiktok', 'imo', 'referral', 'walk-in', 'digital_marketing'])->nullable();
             $table->timestamps();
         });
     }

@@ -34,13 +34,20 @@ Route::prefix('admin')
             ->controller(LeadController::class)
             ->group(function () {
                 Route::get('/', 'index')->name('index');
+                Route::get('create', 'create')->name('create');
                 Route::post('/store', 'store')->name('store');
+                Route::get('/edit/{lead}', 'edit')->name('edit');
                 Route::put('/update/{lead}', 'update')->name('update');
 
                 Route::get('/show/{lead}', 'show')->name('show');
 
                 Route::get('/active/{lead}', 'active')->name('active');
                 Route::get('/inactive/{lead}', 'inactive')->name('inactive');
+
+                Route::get('booked', 'booked')->name('booked');
+                Route::get('droped', 'droped')->name('droped');
+                Route::get('on-process', 'onprocess')->name('onprocess');
+                Route::get('converted', 'converted')->name('converted');
             });
 
         //education qualification

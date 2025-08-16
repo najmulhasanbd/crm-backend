@@ -98,8 +98,14 @@
                                         @foreach ($assign as $key => $item)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
-                                                <td>{{ ucwords($item->user->name) }}</td>
-                                                <td>{{ ucwords($item->lead->lead_id) }}</td>
+                                                <td>
+                                                    <a href="{{ route('user.show',$item->user->id) }}" target="_blank">
+                                                        {{ ucwords($item->user->name) }}
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a href="{{ route('lead.show', $item->lead->id) }}" target="_blank">{{ ucwords($item->lead->lead_id) }}</a>
+                                                </td>
 
                                                 <td class="d-flex gap-2">
                                                     <button class="btn btn-sm btn-success" data-bs-toggle="modal"

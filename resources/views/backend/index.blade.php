@@ -9,13 +9,71 @@
                         <span class="bg-primary h-50 w-50 d-flex-center rounded-circle m-auto eshop-icon-box">
                             <i class="ph  ph-currency-circle-dollar f-s-24"></i>
                         </span>
-
-
                         <div class="card-body eshop-cards">
                             <span class="ripple-effect"></span>
                             <div class="overflow-hidden">
                                 <h3 class="text-primary mb-0">{{ $leads }}</h3>
                                 <p class="mg-b-35 f-w-600 text-dark-800 txt-ellipsis-1">Total Leads
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6  col-lg-4">
+                    <div class="card">
+                        <span class="bg-primary h-50 w-50 d-flex-center rounded-circle m-auto eshop-icon-box">
+                            <i class="ph  ph-currency-circle-dollar f-s-24"></i>
+                        </span>
+                        <div class="card-body eshop-cards">
+                            <span class="ripple-effect"></span>
+                            <div class="overflow-hidden">
+                                <h3 class="text-primary mb-0">{{ $booked }}</h3>
+                                <p class="mg-b-35 f-w-600 text-dark-800 txt-ellipsis-1">Total Booked Leads
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6  col-lg-4">
+                    <div class="card">
+                        <span class="bg-primary h-50 w-50 d-flex-center rounded-circle m-auto eshop-icon-box">
+                            <i class="ph  ph-currency-circle-dollar f-s-24"></i>
+                        </span>
+                        <div class="card-body eshop-cards">
+                            <span class="ripple-effect"></span>
+                            <div class="overflow-hidden">
+                                <h3 class="text-primary mb-0">{{ $onprocess }}</h3>
+                                <p class="mg-b-35 f-w-600 text-dark-800 txt-ellipsis-1">Total On Process Leads
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6  col-lg-4">
+                    <div class="card">
+                        <span class="bg-primary h-50 w-50 d-flex-center rounded-circle m-auto eshop-icon-box">
+                            <i class="ph  ph-currency-circle-dollar f-s-24"></i>
+                        </span>
+                        <div class="card-body eshop-cards">
+                            <span class="ripple-effect"></span>
+                            <div class="overflow-hidden">
+                                <h3 class="text-primary mb-0">{{ $converted }}</h3>
+                                <p class="mg-b-35 f-w-600 text-dark-800 txt-ellipsis-1">Total Converted Leads
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6  col-lg-4">
+                    <div class="card">
+                        <span class="bg-primary h-50 w-50 d-flex-center rounded-circle m-auto eshop-icon-box">
+                            <i class="ph  ph-currency-circle-dollar f-s-24"></i>
+                        </span>
+                        <div class="card-body eshop-cards">
+                            <span class="ripple-effect"></span>
+                            <div class="overflow-hidden">
+                                <h3 class="text-primary mb-0">{{ $droped }}</h3>
+                                <p class="mg-b-35 f-w-600 text-dark-800 txt-ellipsis-1">Total Droped Leads
                                 </p>
                             </div>
                         </div>
