@@ -69,8 +69,8 @@ class AdminController extends Controller
                 $file->move(public_path('uploads/users'), $filename);
             }
 
-            // Create User (employee)
-            User::create([
+            // Create User
+            $user = User::create([
                 'name' => $validated['name'],
                 'role_id' => $validated['role_id'],
                 'email' => $validated['email'],
@@ -89,6 +89,12 @@ class AdminController extends Controller
                 'address' => $validated['address'],
                 'status' => 0,
             ]);
+
+            // Assign Role using Spatie
+            $role = Role::findById($validated['role_id']); // Role find
+            if ($role) {
+                $user->assignRole($role); // model_has_roles এ ডাটা যাবে
+            }
 
             return redirect()->back()->with('success', 'User created successfully! Default password: 12345678');
         } catch (\Exception $e) {
@@ -125,12 +131,11 @@ class AdminController extends Controller
             ],
         );
 
+        // Photo upload
         $filename = $user->photo;
-
         if ($request->hasFile('photo')) {
             if ($user->photo) {
                 $oldPath = public_path('uploads/users/' . $user->photo);
-
                 if (file_exists($oldPath)) {
                     unlink($oldPath);
                 } else {
@@ -143,6 +148,7 @@ class AdminController extends Controller
             $file->move(public_path('uploads/users'), $filename);
         }
 
+        // Update User
         $user->update([
             'id_card' => $request->id_card,
             'name' => $request->name,
@@ -161,10 +167,15 @@ class AdminController extends Controller
             'photo' => $filename,
         ]);
 
+        $role = Role::findById($request->role_id);
+        if ($role) {
+            $user->syncRoles($role);
+        }
+
         return redirect()
             ->route('user.index')
             ->with([
-                'message' => 'User updated successfully!',
+                'message' => 'User updated successfully and role synced!',
                 'alert-type' => 'success',
             ]);
     }
@@ -287,10 +298,12 @@ class AdminController extends Controller
         // sync permissions
         $role->syncPermissions($request->permissions);
 
-        return redirect()->route('user.roles')->with([
-            'message' => 'Role updated successfully!',
-            'alert-type' => 'success',
-        ]);
+        return redirect()
+            ->route('user.roles')
+            ->with([
+                'message' => 'Role updated successfully!',
+                'alert-type' => 'success',
+            ]);
     }
 
     // Delete Role
