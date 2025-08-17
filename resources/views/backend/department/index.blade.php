@@ -71,6 +71,10 @@
                                 {{ $errors->first('name') }}
                             </div>
                         @endif
+                        <div class="mb-3">
+                            <a href="{{ route('department.export.excel') }}" class="btn btn-success">Export Excel</a>
+                            <a href="{{ route('department.export.pdf') }}" class="btn btn-danger">Export PDF</a>
+                        </div>
                         <div class="card">
                             <div class="card-body p-0">
                                 <div class="app-datatable-default overflow-auto">

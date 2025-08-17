@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Department;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use App\Exports\DepartmentExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DepartmentController extends Controller
 {
@@ -65,5 +68,17 @@ class DepartmentController extends Controller
             'message' => "Department '{$name}' deleted successfully!",
             'alert-type' => 'success'
         ]);
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new DepartmentExport, 'departments.xlsx');
+    }
+
+    public function exportPDF()
+    {
+        $departments = Department::all();
+        $pdf = Pdf::loadView('backend.department.pdf', compact('departments'));
+        return $pdf->download('departments.pdf');
     }
 }

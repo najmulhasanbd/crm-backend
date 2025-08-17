@@ -20,9 +20,7 @@ Route::get('/', function () {
 //     return view('backend.index');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::post('/admin/cache-clear', [DashboardContrller::class, 'clear'])
-    ->name('admin.cache.clear');
-
+Route::post('/admin/cache-clear', [DashboardContrller::class, 'clear'])->name('admin.cache.clear');
 
 Route::prefix('admin')
     ->middleware(['auth'])
@@ -125,6 +123,9 @@ Route::prefix('admin')
                 Route::post('/store', 'store')->name('store');
                 Route::put('/update/{department}', 'update')->name('update');
                 Route::delete('/delete/{department}', 'delete')->name('delete');
+
+                Route::get('/export/excel', 'exportExcel')->name('export.excel');
+                Route::get('/export/pdf', 'exportPDF')->name('export.pdf');
             });
         //designation
         Route::prefix('designation')
