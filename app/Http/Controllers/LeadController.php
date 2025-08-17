@@ -15,11 +15,12 @@ class LeadController extends Controller
     public function index()
     {
         $leads = Lead::latest()->get();
+        $leadcount = Lead::latest()->count();
         $assign = LeadAssign::with('lead', 'user')->get();
 
         $jobRoles = JobRole::latest()->get();
         $education = EducationQualification::latest()->get();
-        return view('backend.lead.index', compact('jobRoles', 'education', 'leads', 'assign'));
+        return view('backend.lead.index', compact('jobRoles', 'education', 'leads', 'assign', 'leadcount'));
     }
 
     public function create()
@@ -201,27 +202,32 @@ class LeadController extends Controller
     public function booked()
     {
         $booked = Lead::where('status', 'booked')->latest()->get();
-        return view('backend.lead.booked', compact('booked'));
+        $bookedleadcount = Lead::where('status', 'booked')->latest()->count();
+        return view('backend.lead.booked', compact('booked', 'bookedleadcount'));
     }
     public function droped()
     {
         $droped = Lead::where('status', 'droped')->latest()->get();
-        return view('backend.lead.droped', compact('droped'));
+        $dropedleadcount = Lead::where('status', 'droped')->latest()->count();
+        return view('backend.lead.droped', compact('droped', 'dropedleadcount'));
     }
     public function onprocess()
     {
         $onprocess = Lead::where('status', 'onprocess')->latest()->get();
-        return view('backend.lead.onprocess', compact('onprocess'));
+        $onProcessleadcount = Lead::where('status', 'onprocess')->latest()->count();
+        return view('backend.lead.onprocess', compact('onprocess', 'onProcessleadcount'));
     }
     public function converted()
     {
         $converted = Lead::where('status', 'converted')->latest()->get();
-        return view('backend.lead.converted', compact('converted'));
+        $convertedleadcount = Lead::where('status', 'converted')->latest()->count();
+        return view('backend.lead.converted', compact('converted', 'convertedleadcount'));
     }
     public function reject()
     {
         $reject = Lead::where('status', 'Rejected')->latest()->get();
-        return view('backend.lead.reject', compact('reject'));
+        $rejectCount = Lead::where('status', 'Rejected')->latest()->count();
+        return view('backend.lead.reject', compact('reject','rejectCount'));
     }
     public function todayFollow()
     {
@@ -244,7 +250,8 @@ class LeadController extends Controller
     public function missingLead()
     {
         $missingLead = Lead::whereNull('follow_up')->orWhere('follow_up', '[]')->get();
+        $missingleadcount = Lead::whereNull('follow_up')->orWhere('follow_up', '[]')->count();
 
-        return view('backend.lead.missing_lead', compact('missingLead'));
+        return view('backend.lead.missing_lead', compact('missingLead', 'missingleadcount'));
     }
 }

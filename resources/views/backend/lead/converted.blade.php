@@ -7,7 +7,7 @@
             <!-- Breadcrumb start -->
             <div class="row m-1">
                 <div class="col-12 col-md-6">
-                    <h4 class="main-title">Converted Lead List </h4>
+                    <h4 class="main-title">Converted Lead List <span class="btn btn-sm btn-primary">{{$convertedleadcount}}</h4>
                     <ul class="app-line-breadcrumbs mb-3">
                         <li class="">
                             <a class="f-s-14 f-w-500" href="{{ route('lead.index') }}">
