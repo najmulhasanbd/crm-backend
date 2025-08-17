@@ -23,95 +23,69 @@
      </div>
      <div class="app-nav" id="app-simple-bar">
          <ul class="main-nav p-0 mt-2">
-             <li class="no-sub">
-                 <a href="{{ route('admin.dashboard') }}">
-                     <svg stroke="currentColor" stroke-width="1.5">
-                         <use
-                             xlink:href="https://phpstack-1384472-5121645.cloudwaysapps.com/template/html/ki-admin/assets/svg/_sprite.svg#squares">
-                         </use>
-                     </svg>
-                     Dashboard
-                 </a>
-             </li>
-             <li>
-                 <a aria-expanded="false" data-bs-toggle="collapse" href="#dashboard">
-                     <svg stroke="currentColor" stroke-width="1.5">
-                         <use
-                             xlink:href="https://phpstack-1384472-5121645.cloudwaysapps.com/template/html/ki-admin/assets/svg/_sprite.svg#home">
-                         </use>
-                     </svg>
-                     Leads
+             @can('dashboard.view')
+                 <li class="no-sub">
+                     <a href="{{ route('admin.dashboard') }}">Dashboard</a>
+                 </li>
+             @endcan
 
-                 </a>
-                 <ul class="collapse" id="dashboard">
-                     <li><a href="{{ route('lead.index') }}">Leads</a></li>
-                     <li><a href="{{ route('lead-assign.index') }}">Lead Assign</a></li>
-                 </ul>
-             </li>
-             <li class="no-sub">
-                 <a href="{{ route('education.index') }}">
-                     <svg stroke="currentColor" stroke-width="1.5">
-                         <use
-                             xlink:href="https://phpstack-1384472-5121645.cloudwaysapps.com/template/html/ki-admin/assets/svg/_sprite.svg#squares">
-                         </use>
-                     </svg>
-                     Education Qualification
-                 </a>
-             </li>
-             <li class="no-sub">
-                 <a href="{{ route('jobRole.index') }}">
-                     <svg stroke="currentColor" stroke-width="1.5">
-                         <use
-                             xlink:href="https://phpstack-1384472-5121645.cloudwaysapps.com/template/html/ki-admin/assets/svg/_sprite.svg#squares">
-                         </use>
-                     </svg>
-                     Job Roles
-                 </a>
-             </li>
-             <li class="no-sub">
-                 <a href="{{ route('designation.index') }}">
-                     <svg stroke="currentColor" stroke-width="1.5">
-                         <use
-                             xlink:href="https://phpstack-1384472-5121645.cloudwaysapps.com/template/html/ki-admin/assets/svg/_sprite.svg#squares">
-                         </use>
-                     </svg>
-                     Designation
-                 </a>
-             </li>
-             <li class="no-sub">
-                 <a href="{{ route('employee.index') }}">
-                     <svg stroke="currentColor" stroke-width="1.5">
-                         <use
-                             xlink:href="https://phpstack-1384472-5121645.cloudwaysapps.com/template/html/ki-admin/assets/svg/_sprite.svg#squares">
-                         </use>
-                     </svg>
-                     Employee
-                 </a>
-             </li>
-             <li class="no-sub">
-                 <a href="{{ route('department.index') }}">
-                     <svg stroke="currentColor" stroke-width="1.5">
-                         <use
-                             xlink:href="https://phpstack-1384472-5121645.cloudwaysapps.com/template/html/ki-admin/assets/svg/_sprite.svg#squares">
-                         </use>
-                     </svg>
-                     Department
-                 </a>
-             </li>
-             <li>
-                 <a aria-expanded="false" data-bs-toggle="collapse" href="#administation">
-                     <svg stroke="currentColor" stroke-width="1.5">
-                         <use
-                             xlink:href="https://phpstack-1384472-5121645.cloudwaysapps.com/template/html/ki-admin/assets/svg/_sprite.svg#home">
-                         </use>
-                     </svg>
-                     Role & Permission
-                 </a>
-                 <ul class="collapse" id="administation">
-                     <li><a href="{{ route('user.index') }}">Admins</a></li>
-                     <li><a href="{{ route('user.roles') }}">Admin Roles</a></li>
-                 </ul>
-             </li>
+             @canany(['lead.view', 'lead.assign'])
+                 <li>
+                     <a data-bs-toggle="collapse" href="#dashboard">Leads</a>
+                     <ul class="collapse" id="dashboard">
+                         @can('lead.view')
+                             <li><a href="{{ route('lead.index') }}">Leads</a></li>
+                         @endcan
+                         @can('lead.assign')
+                             <li><a href="{{ route('lead-assign.index') }}">Lead Assign</a></li>
+                         @endcan
+                     </ul>
+                 </li>
+             @endcanany
+
+             @can('education.view')
+                 <li class="no-sub">
+                     <a href="{{ route('education.index') }}">Education Qualification</a>
+                 </li>
+             @endcan
+
+             @can('jobRole.view')
+                 <li class="no-sub">
+                     <a href="{{ route('jobRole.index') }}">Job Roles</a>
+                 </li>
+             @endcan
+
+             @can('designation.view')
+                 <li class="no-sub">
+                     <a href="{{ route('designation.index') }}">Designation</a>
+                 </li>
+             @endcan
+
+             @can('employee.view')
+                 <li class="no-sub">
+                     <a href="{{ route('employee.index') }}">Employee</a>
+                 </li>
+             @endcan
+
+             @can('department.view')
+                 <li class="no-sub">
+                     <a href="{{ route('department.index') }}">Department</a>
+                 </li>
+             @endcan
+
+             @canany(['user.view', 'role.view'])
+                 <li>
+                     <a data-bs-toggle="collapse" href="#administation">Role & Permission</a>
+                     <ul class="collapse" id="administation">
+                         @can('user.view')
+                             <li><a href="{{ route('user.index') }}">Admins</a></li>
+                         @endcan
+                         @can('role.view')
+                             <li><a href="{{ route('user.roles') }}">Admin Roles</a></li>
+                         @endcan
+                     </ul>
+                 </li>
+             @endcanany
          </ul>
      </div>
 

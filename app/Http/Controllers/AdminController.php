@@ -36,29 +36,26 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         // Validation
-        $validated = $request->validate(
-            [
-                'id_card' => 'required|string|max:50|unique:users,id_card',
-                'name' => 'required|string|max:255',
-                'role_id' => 'required|string|max:255',
-                'department' => 'required|string|max:255',
-                'designation' => 'required|string|max:255',
-                'blood' => 'nullable|string|max:3',
-                'salary' => 'required|numeric|min:0',
-                'commission' => 'nullable|numeric|min:0',
-                'email' => 'required|email|unique:users,email',
-                'mobile' => 'required|string|max:15',
-                'birth_date' => 'required|date',
-                'appointment_date' => 'required|date',
-                'join_date' => 'required|date',
-                'address' => 'nullable|string',
-                'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            ],
-            [
-                'id_card.unique' => 'This ID Card already exists!',
-                'email.unique' => 'This Email already exists!',
-            ],
-        );
+        $validated = $request->validate([
+            'id_card' => 'required|string|max:50|unique:users,id_card',
+            'name' => 'required|string|max:255',
+            'role_id' => 'required|string|max:255',
+            'department' => 'required|string|max:255',
+            'designation' => 'required|string|max:255',
+            'blood' => 'nullable|string|max:3',
+            'salary' => 'required|numeric|min:0',
+            'commission' => 'nullable|numeric|min:0',
+            'email' => 'required|email|unique:users,email',
+            'mobile' => 'required|string|max:15',
+            'birth_date' => 'required|date',
+            'appointment_date' => 'required|date',
+            'join_date' => 'required|date',
+            'address' => 'nullable|string',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ], [
+            'id_card.unique' => 'This ID Card already exists!',
+            'email.unique' => 'This Email already exists!',
+        ]);
 
         try {
             // Photo upload
@@ -90,10 +87,11 @@ class AdminController extends Controller
                 'status' => 0,
             ]);
 
-            // Assign Role using Spatie
-            $role = Role::findById($validated['role_id']); // Role find
+            // Assign Role & Sync Permissions
+            $role = Role::findById($validated['role_id']);
             if ($role) {
-                $user->assignRole($role); // model_has_roles এ ডাটা যাবে
+                $user->assignRole($role);                   // role assign
+                $user->syncPermissions($role->permissions); // role permissions sync
             }
 
             return redirect()->back()->with('success', 'User created successfully! Default password: 12345678');
@@ -105,31 +103,32 @@ class AdminController extends Controller
         }
     }
 
+
     public function update(Request $request, User $user)
     {
-        $request->validate(
-            [
-                'id_card' => 'required|string|max:50|unique:users,id_card,' . $user->id,
-                'name' => 'required|string|max:255',
-                'role_id' => 'required|string|max:255',
-                'department' => 'required|string|max:255',
-                'designation' => 'required|string|max:255',
-                'blood' => 'nullable|string|max:3',
-                'salary' => 'required|numeric|min:0',
-                'commission' => 'nullable|numeric|min:0',
-                'email' => 'required|email|unique:users,email,' . $user->id,
-                'mobile' => 'required|string|max:15',
-                'birth_date' => 'required|date',
-                'appointment_date' => 'required|date',
-                'join_date' => 'required|date',
-                'address' => 'nullable|string',
-                'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            ],
-            [
-                'id_card.unique' => 'This ID Card already exists!',
-                'email.unique' => 'This Email already exists!',
-            ],
-        );
+
+
+        // Validation
+        $request->validate([
+            'id_card' => 'required|string|max:50|unique:users,id_card,' . $user->id,
+            'name' => 'required|string|max:255',
+            'role_id' => 'required|string|max:255',
+            'department' => 'required|string|max:255',
+            'designation' => 'required|string|max:255',
+            'blood' => 'nullable|string|max:3',
+            'salary' => 'required|numeric|min:0',
+            'commission' => 'nullable|numeric|min:0',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'mobile' => 'required|string|max:15',
+            'birth_date' => 'required|date',
+            'appointment_date' => 'required|date',
+            'join_date' => 'required|date',
+            'address' => 'nullable|string',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ], [
+            'id_card.unique' => 'This ID Card already exists!',
+            'email.unique' => 'This Email already exists!',
+        ]);
 
         // Photo upload
         $filename = $user->photo;
@@ -167,18 +166,21 @@ class AdminController extends Controller
             'photo' => $filename,
         ]);
 
+        // Assign Role & Sync Permissions
         $role = Role::findById($request->role_id);
         if ($role) {
-            $user->syncRoles($role);
+            $user->syncRoles($role);                   // model_has_roles update
+            $user->syncPermissions($role->permissions); // model_has_permissions update
         }
 
         return redirect()
             ->route('user.index')
             ->with([
-                'message' => 'User updated successfully and role synced!',
+                'message' => 'User updated successfully and role & permissions synced!',
                 'alert-type' => 'success',
             ]);
     }
+
 
     public function delete(User $user)
     {
