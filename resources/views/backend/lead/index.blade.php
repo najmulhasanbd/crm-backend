@@ -59,6 +59,7 @@
                                             <th class="sort">Mobile</th>
                                             <th class="sort">Country</th>
                                             <th class="sort">FollowUp</th>
+                                            <th class="sort">Status</th>
                                             <th class="sort">Action</th>
                                         </tr>
                                     </thead>
@@ -81,24 +82,25 @@
                                                     $followUp = $item->follow_up;
 
                                                     // Decode JSON if it's a string
-if (is_string($followUp) && str_starts_with($followUp, '[')) {
-    $decoded = json_decode($followUp, true);
-    if (is_array($decoded) && count($decoded)) {
-        $followUp = end($decoded); // Get the last date
-    }
-}
+                                                    if (is_string($followUp) && str_starts_with($followUp, '[')) {
+                                                        $decoded = json_decode($followUp, true);
+                                                        if (is_array($decoded) && count($decoded)) {
+                                                            $followUp = end($decoded); // Get the last date
+                                                        }
+                                                    }
 
-if (is_array($followUp)) {
-    $followUp = end($followUp);
-}
+                                                    if (is_array($followUp)) {
+                                                        $followUp = end($followUp);
+                                                    }
 
-// Format it (if date exists)
-$lastDate = $followUp
-    ? \Carbon\Carbon::parse($followUp)->format('d M Y')
-    : 'N/A';
+                                                    // Format it (if date exists)
+                                                    $lastDate = $followUp
+                                                        ? \Carbon\Carbon::parse($followUp)->format('d M Y')
+                                                        : 'N/A';
                                                 @endphp
 
                                                 <td>{{ $lastDate }}</td>
+                                                <td style="color:#0f626a">{{ $item->status }}</td>
 
                                                 <td class="d-flex gap-2">
                                                     <a href="{{ route('lead.show', $item->id) }}"

@@ -220,18 +220,30 @@ class LeadController extends Controller
     }
     public function reject()
     {
-        $reject = Lead::where('status', 'reject')->latest()->get();
+        $reject = Lead::where('status', 'Rejected')->latest()->get();
         return view('backend.lead.reject', compact('reject'));
     }
     public function todayFollow()
     {
-        $todayFollow = Lead::whereDate('created_at', Carbon::today())->get();
+        $today = Carbon::today()->toDateString();
+
+        $leads = Lead::whereNotNull('follow_up')->get();
+
+        $todayFollow = $leads->filter(function ($lead) use ($today) {
+            $followUps = json_decode($lead->follow_up, true);
+            if (!$followUps || !is_array($followUps)) {
+                return false;
+            }
+
+            $lastDate = end($followUps);
+            return $lastDate === $today;
+        });
+
         return view('backend.lead.today_follow', compact('todayFollow'));
     }
     public function missingLead()
     {
-        $yesterday = Carbon::yesterday()->toDateString(); // গতকালের তারিখ
-        $missingLead = Lead::whereDate('follow_up', $yesterday)->get();
+        $missingLead = Lead::whereNull('follow_up')->orWhere('follow_up', '[]')->get();
 
         return view('backend.lead.missing_lead', compact('missingLead'));
     }

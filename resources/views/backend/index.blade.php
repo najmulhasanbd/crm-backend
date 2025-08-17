@@ -12,8 +12,8 @@
                         <div class="card-body eshop-cards">
                             <span class="ripple-effect"></span>
                             <a href="{{ route('lead.reject') }}" class="overflow-hidden d-block">
-                                <h3 class="text-primary mb-0">{{ $data['rejected'] }}</h3>
-                                <p class="mg-b-35 f-w-600 text-dark-800 txt-ellipsis-1">Rejected Lead </p>
+                                <h3 class="text-danger mb-0">{{ $data['rejected'] }}</h3>
+                                <p class="mg-b-35 f-w-600 text-danger txt-ellipsis-1">Rejected Lead </p>
                             </a>
                         </div>
                     </div>
@@ -26,7 +26,7 @@
                         <div class="card-body eshop-cards">
                             <span class="ripple-effect"></span>
                             <a href="{{ route('lead.today.follow.lead') }}" class="overflow-hidden d-block">
-                                <h3 class="text-primary mb-0">{{ $data['leads'] }}</h3>
+                                <h3 class="text-primary mb-0">{{ $data['todayFollowCount'] }}</h3>
                                 <p class="mg-b-35 f-w-600 text-dark-800 txt-ellipsis-1">Today Follow Up </p>
                             </a>
                         </div>
@@ -40,8 +40,8 @@
                         <div class="card-body eshop-cards">
                             <span class="ripple-effect"></span>
                             <a href="{{ route('lead.missing.lead') }}" class="overflow-hidden d-block">
-                                <h3 class="text-primary mb-0">{{ $data['leads'] }}</h3>
-                                <p class="mg-b-35 f-w-600 text-dark-800 txt-ellipsis-1">Missing Follow Up </p>
+                                <h3 class="text-danger mb-0">{{ $data['missingLeadCount'] }}</h3>
+                                <p class="mg-b-35 f-w-600 text-danger txt-ellipsis-1">Missing Follow Up </p>
                             </a>
                         </div>
                     </div>
