@@ -14,7 +14,12 @@
              <div class="col-4 col-sm-6 d-flex align-items-center justify-content-end header-right p-0">
 
                  <ul class="d-flex align-items-center">
-
+                     <li>
+                         <form action="{{ route('admin.cache.clear') }}" method="POST" style="display:inline;">
+                             @csrf
+                             <button type="submit" class="btn btn-sm btn-primary">Cache Clear</button>
+                         </form>
+                     </li>
                      <li class="header-apps">
                          <a aria-controls="appscanvasRights"
                              class="d-block head-icon bg-light-dark rounded-circle f-s-22 p-2"

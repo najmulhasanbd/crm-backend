@@ -20,6 +20,10 @@ Route::get('/', function () {
 //     return view('backend.index');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::post('/admin/cache-clear', [DashboardContrller::class, 'clear'])
+    ->name('admin.cache.clear');
+
+
 Route::prefix('admin')
     ->middleware(['auth'])
     ->group(function () {

@@ -5,10 +5,26 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Lead;
 use App\Models\Employee;
+use Illuminate\Support\Facades\Artisan;
 use App\Models\Department;
 
 class DashboardContrller extends Controller
 {
+
+    public function clear()
+    {
+        Artisan::call('cache:clear');
+        Artisan::call('config:clear');
+        Artisan::call('route:clear');
+        Artisan::call('view:clear');
+
+        return redirect()->back()->with([
+            'message' => 'Cache cleared successfully!',
+            'alert-type' => 'success',
+        ]);
+    }
+
+
     public function index()
     {
         $data = [];
